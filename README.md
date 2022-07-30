@@ -1,2 +1,2 @@
 # SyntaxHub
- Scripting hub for ROBLOX.
+ Script hub for ROBLOX.
