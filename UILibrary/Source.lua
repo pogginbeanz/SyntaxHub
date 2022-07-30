@@ -5,7 +5,7 @@ local function importModuleFromId(id)
 end
 
 local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
-local Fusion = importModuleFromId("rbxassetid://10420227346")
+local Fusion = importModuleFromId("10420227346")
 
 local Library = {}
 
