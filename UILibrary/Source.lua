@@ -5,7 +5,6 @@ local function importModuleFromId(id)
 end
 
 local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
-local Fusion = importModuleFromId("rbxassetid://10420227346")
 
 local Library = {}
 
@@ -23,10 +22,6 @@ Library.Utility = {
 }
 
 do
-    local New = Fusion.New
-    local Children = Fusion.Children
-    local OnEvent = Fusion.OnEvent
-    local State = Fusion.State
     Library.Components = {
         ["Window"] = {
             Gui = function()
@@ -46,59 +41,54 @@ do
         },
         ["Button"] = {
             Gui = function(props)
-                local text = State(props.Text)
+                local button = Instance.new("TextButton")
+                button.Name = "Button"
+                button.Font = Enum.Font.SourceSans
+                button.Text = ""
+                button.TextColor3 = Color3.fromRGB(0, 0, 0)
+                button.TextSize = 14
+                button.AutoButtonColor = false
+                button.AnchorPoint = Vector2.new(0.5, 0.5)
+                button.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                button.BorderSizePixel = 0
+                button.Position = UDim2.fromScale(0.494, 0.0798)
+                button.Size = UDim2.fromOffset(405, 42)
 
-                local button
-                button = New "TextButton" {
-                    Name = "Button",
-                    Font = Enum.Font.SourceSans,
-                    Text = "",
-                    TextColor3 = Color3.fromRGB(0, 0, 0),
-                    TextSize = 14,
-                    AutoButtonColor = false,
-                    AnchorPoint = Vector2.new(0.5, 0.5),
-                    BackgroundColor3 = Color3.fromRGB(34, 34, 34),
-                    BorderSizePixel = 0,
-                    Position = UDim2.fromScale(0.494, 0.0798),
-                    Size = UDim2.fromOffset(405, 42),
+                local buttonCorner = Instance.new("UICorner")
+                buttonCorner.Name = "ButtonCorner"
+                buttonCorner.CornerRadius = UDim.new(0, 5)
+                buttonCorner.Parent = button
 
-                    [OnEvent "MouseEnter"] = function()
-                        Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
-                    end,
-                    [OnEvent "MouseLeave"] = function()
-                        Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(34, 34, 34), 0.2)
-                    end,
+                local buttonTitle = Instance.new("TextLabel")
+                buttonTitle.Name = "ButtonTitle"
+                buttonTitle.Font = Enum.Font.Gotham
+                buttonTitle.Text = props.Text
+                buttonTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                buttonTitle.TextSize = 14
+                buttonTitle.TextXAlignment = Enum.TextXAlignment.Left
+                buttonTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                buttonTitle.BackgroundTransparency = 1
+                buttonTitle.BorderSizePixel = 0
+                buttonTitle.Position = UDim2.fromScale(0.035, 0)
+                buttonTitle.Size = UDim2.fromOffset(187, 42)
+                buttonTitle.Parent = button
 
-                    [Children] = {
-                      New "UICorner" {
-                        Name = "ButtonCorner",
-                        CornerRadius = UDim.new(0, 5),
-                      },
+                button.MouseEnter:Connect(function()
+                    Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
+                end)
 
-                      New "TextLabel" {
-                        Name = "ButtonTitle",
-                        Font = Enum.Font.Gotham,
-                        Text = text,
-                        TextColor3 = Color3.fromRGB(255, 255, 255),
-                        TextSize = 14,
-                        TextXAlignment = Enum.TextXAlignment.Left,
-                        BackgroundColor3 = Color3.fromRGB(255, 255, 255),
-                        BackgroundTransparency = 1,
-                        BorderSizePixel = 0,
-                        Position = UDim2.fromScale(0.035, 0),
-                        Size = UDim2.fromOffset(187, 42),
-                      },
-                    }
-                  }
+                button.MouseLeave:Connect(function()
+                    Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(34, 34, 34), 0.2)
+                end)
 
-                  return {
+                return {
                     GuiObject = button,
                     Functions = {
                         GetText = function()
-                            return text:get()
+                            return button.Text
                         end,
                         SetText = function(newText)
-                            text:set(newText)
+                            button.Text = newText
                         end,
                         Destroy = function()
                             button:Destroy()
@@ -107,7 +97,7 @@ do
                     Events = {
                         OnClick = button.Activated
                     }
-                  }
+                }
             end,
             Element = function(gui)
                 local Element = {}
