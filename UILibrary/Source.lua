@@ -85,10 +85,10 @@ do
                     GuiObject = button,
                     Functions = {
                         GetText = function()
-                            return button.Text
+                            return buttonTitle.Text
                         end,
                         SetText = function(newText)
-                            button.Text = newText
+                            buttonTitle.Text = newText
                         end,
                         Destroy = function()
                             button:Destroy()
