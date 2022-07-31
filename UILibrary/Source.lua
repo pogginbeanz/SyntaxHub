@@ -272,15 +272,9 @@ do
                     local tabGui = component.TabGui({Name = name})
 
                     tabBtnGui.Events.OnSelected:Connect(function()
-                        for _, tab in ipairs(gui.GuiObject.TabFolder:GetChildren()) do
-                            if tab:IsA("Frame") then
-                                tab.Visible = false
-                            end
-                        end
-                        for _, tab in ipairs(gui.GuiObject.TabHoldFrame.TabHold:GetChildren()) do
-                            if tab:IsA("TextButton") then
-                                tab.TabTitle.TextColor3 = Color3.fromRGB(204, 204, 204)
-                            end
+                        for _, tab in ipairs(gui.Properties.Tabs) do
+                            tab.TabGui.GuiObject.Visible = false
+                            tab.TabBtnGui.GuiObject.TabTitle.TextColor3 = Color3.fromRGB(204, 204, 204)
                         end
                         tabGui.GuiObject.Visible = true
                         tabBtnGui.GuiObject.TabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
