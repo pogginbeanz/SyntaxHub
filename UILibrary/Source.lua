@@ -4,8 +4,7 @@ local function importModuleFromId(id)
     return require(game:GetObjects(id)[1])
 end
 
-local Signal =
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
+local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
 
 local Library = {}
 
@@ -196,6 +195,8 @@ do
 
                 topbar.Parent = main
 
+                main.Parent = game.Players.LocalPlayer.PlayerGui.ScreenGui
+
                 return {
                     GuiObject = main,
                     Functions = {
@@ -326,17 +327,13 @@ do
                 buttonTitle.Size = UDim2.fromOffset(187, 42)
                 buttonTitle.Parent = button
 
-                button.MouseEnter:Connect(
-                    function()
+                button.MouseEnter:Connect(function()
                         Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
-                    end
-                )
+                end)
 
-                button.MouseLeave:Connect(
-                    function()
+                button.MouseLeave:Connect(function()
                         Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(34, 34, 34), 0.2)
-                    end
-                )
+                end)
 
                 return {
                     GuiObject = button,
@@ -386,9 +383,11 @@ function Library:CreateElement(componentName, props)
     return component.Element(component.Gui(props or {}))
 end
 
-function Library:CreateWindow()
-    local props = {}
-    return self:CreateElement("Window", props)
+function Library:CreateWindow(name, gameName)
+    return self:CreateElement("Window", {
+        Name = name,
+        GameName = gameName
+    })
 end
 
 return Library
