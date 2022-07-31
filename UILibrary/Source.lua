@@ -495,7 +495,7 @@ do
                 buttonTitle.Parent = button
 
                 button.MouseEnter:Connect(function()
-                        Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
+                    Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
                 end)
 
                 button.MouseLeave:Connect(function()
@@ -556,13 +556,10 @@ function Library:CreateElementWithArguments(componentName, ...)
 end
 
 function Library:CreateWindow(name, gameName)
-    return self:CreateElement(
-        "Window",
-        {
-            Name = name,
-            GameName = gameName
-        }
-    )
+    return self:CreateElement("Window", {
+        Name = name,
+        GameName = gameName
+    })
 end
 
 local ScreenGui = Instance.new("ScreenGui")
