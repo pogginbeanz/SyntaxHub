@@ -25,7 +25,7 @@ do
                 main.AnchorPoint = Vector2.new(0.5, 0.5)
                 main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
                 main.BorderSizePixel = 0
-                main.Position = UDim2.fromScale(0.499, 0.473)
+                main.Position = UDim2.fromScale(0.5, 0.5)
                 main.Size = UDim2.fromOffset(560, 319)
 
                 local tabFolder = Instance.new("Folder")
@@ -214,6 +214,9 @@ do
                             local name = title.Text:split(" - ")[1]
                             title.Text = ("%s - %s"):format(name, newGameName)
                         end,
+                        SetPosition = function(position)
+                            main.Position = position
+                        end,
                         Destroy = function()
                             main:Destroy()
                         end
@@ -238,6 +241,10 @@ do
 
                 function Element:SetGameName(newGameName)
                     gui.Functions.SetGameName(newGameName)
+                end
+
+                function Element:SetPosition(position)
+                    gui.Functions.SetPosition(position)
                 end
 
                 function Element:Destroy()
