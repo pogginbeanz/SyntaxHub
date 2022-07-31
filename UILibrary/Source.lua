@@ -397,6 +397,9 @@ do
                 }
             end,
             Element = function(tabBtnGui, tabGui)
+                local Element = {}
+
+                return Element
             end
         },
         ["Label"] = {
