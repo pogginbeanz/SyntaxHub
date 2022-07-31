@@ -3,7 +3,7 @@
 	@Description: Enables dragging on GuiObjects. Supports both mouse and touch.
 
     Modified in order to use topbar inputs.
-	
+
 	For instructions on how to use this module, go to this link:
 	https://devforum.roblox.com/t/simple-module-for-creating-draggable-gui-elements/230678
 --]]
@@ -76,13 +76,15 @@ function DraggableObject:Enable()
 		end
 	end)
 	
-	self.InputChanged = topbar.InputChanged:Connect(function(input)
+	self.InputChanged = topbar.InputChanged:Connect(function(input, gameProcessed)
+        if gameProcessed then return end
 		if input.UserInputType == Enum.UserInputType.MouseMovement or input.UserInputType == Enum.UserInputType.Touch then
 			dragInput = input
 		end
 	end)
 	
-	self.InputChanged2 = UserInputService.InputChanged:Connect(function(input)
+	self.InputChanged2 = UserInputService.InputChanged:Connect(function(input, gameProcessed)
+        if gameProcessed then return end
 		if object.Parent == nil then
 			self:Disable()
 			return
