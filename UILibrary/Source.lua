@@ -5,6 +5,9 @@ local function importModuleFromId(id)
 end
 
 local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
+local StringGenerator = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua", true))()
+
+local RNG = Random.new(os.time()+tick())
 
 local Library = {}
 
@@ -195,7 +198,7 @@ do
 
                 topbar.Parent = main
 
-                main.Parent = game.Players.LocalPlayer.PlayerGui.ScreenGui
+                main.Parent = Library.Container
 
                 return {
                     GuiObject = main,
@@ -403,5 +406,10 @@ function Library:CreateWindow(name, gameName)
         GameName = gameName
     })
 end
+
+local ScreenGui = Instance.new("ScreenGui")
+ScreenGui.Name = StringGenerator(RNG:NextInteger(20, 30))
+ScreenGui.Parent = game:GetService("CoreGui")
+Library.Container = ScreenGui
 
 return Library
