@@ -4,8 +4,7 @@ local function importModuleFromId(id)
     return require(game:GetObjects(id)[1])
 end
 
-local Signal =
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
+local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
 
 local Library = {}
 
