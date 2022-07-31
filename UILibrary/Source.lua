@@ -272,7 +272,7 @@ do
                     local tabGui = component.TabGui({Name = name})
 
                     tabBtnGui.Events.OnSelected:Connect(function()
-                        for _, tab in ipairs(gui.Properties.Tabs) do
+                        for _, tab in pairs(gui.Properties.Tabs) do
                             tab.TabGui.GuiObject.Visible = false
                             tab.TabBtnGui.GuiObject.TabTitle.TextColor3 = Color3.fromRGB(204, 204, 204)
                         end
