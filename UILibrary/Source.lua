@@ -4,12 +4,8 @@ local function importModuleFromId(id)
     return require(game:GetObjects(id)[1])
 end
 
-local Signal =
-    loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
-local StringGenerator =
-    loadstring(
-    game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua", true)
-)()
+local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
+local StringGenerator = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua", true))()
 
 local RNG = Random.new(os.time() + tick())
 
@@ -275,23 +271,21 @@ do
                     local tabBtnGui = component.TabBtnGui({Name = name})
                     local tabGui = component.TabGui({Name = name})
 
-                    tabBtnGui.Events.OnSelected:Connect(
-                        function()
-                            for _, tab in ipairs(gui.GuiObject.TabFolder:GetChildren()) do
-                                if tab:IsA("Frame") then
-                                    tab.Visible = false
-                                end
+                    tabBtnGui.Events.OnSelected:Connect(function()
+                        for _, tab in ipairs(gui.GuiObject.TabFolder:GetChildren()) do
+                            if tab:IsA("Frame") then
+                                tab.Visible = false
                             end
-                            for _, tab in ipairs(gui.GuiObject.TabHoldFrame:GetChildren()) do
-                                if tab:IsA("TextButton") then
-                                    tab.TabTitle.TextColor3 = Color3.fromRGB(204, 204, 204)
-                                end
-                            end
-                            tabGui.GuiObject.Visible = true
-                            tabBtnGui.GuiObject.TabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-                            gui.Properties.SelectedTab = name
                         end
-                    )
+                        for _, tab in ipairs(gui.GuiObject.TabHoldFrame:GetChildren()) do
+                            if tab:IsA("TextButton") then
+                                tab.TabTitle.TextColor3 = Color3.fromRGB(204, 204, 204)
+                            end
+                        end
+                        tabGui.GuiObject.Visible = true
+                        tabBtnGui.GuiObject.TabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        gui.Properties.SelectedTab = name
+                    end)
 
                     gui.Properties.Tabs[name] = {
                         TabBtnGui = tabBtnGui,
@@ -354,24 +348,17 @@ do
                 uICorner.CornerRadius = UDim.new(0, 6)
                 uICorner.Parent = tabBtn
 
-                tabBtn.MouseEnter:Connect(
-                    function()
-                        Library.Utility:TweenBackgroundTransparency(tabBtn, 0, 0.2)
-                    end
-                )
+                tabBtn.MouseEnter:Connect(function()
+                    Library.Utility:TweenBackgroundTransparency(tabBtn, 0, 0.2)
+                end)
 
-                tabBtn.MouseLeave:Connect(
-                    function()
-                        Library.Utility:TweenBackgroundTransparency(tabBtn, 1, 0.2)
-                    end
-                )
+                tabBtn.MouseLeave:Connect(function()
+                    Library.Utility:TweenBackgroundTransparency(tabBtn, 1, 0.2)
+                end)
 
-                tabBtn.Activated:Connect(
-                    function()
-                        tabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-                        onSelected:Fire()
-                    end
-                )
+                tabBtn.Activated:Connect(function()
+                    onSelected:Fire()
+                end)
 
                 return {
                     GuiObject = tabBtn,
@@ -513,17 +500,13 @@ do
                 buttonTitle.Size = UDim2.fromOffset(187, 42)
                 buttonTitle.Parent = button
 
-                button.MouseEnter:Connect(
-                    function()
+                button.MouseEnter:Connect(function()
                         Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
-                    end
-                )
+                end)
 
-                button.MouseLeave:Connect(
-                    function()
-                        Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(34, 34, 34), 0.2)
-                    end
-                )
+                button.MouseLeave:Connect(function()
+                    Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(34, 34, 34), 0.2)
+                end)
 
                 return {
                     GuiObject = button,
