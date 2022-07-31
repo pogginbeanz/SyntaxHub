@@ -5,9 +5,9 @@ local function importModuleFromId(id)
 end
 
 local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
-local StringGenerator = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua", true))()
+local StringGenerator = loadstring( game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua", true))()
 
-local RNG = Random.new(os.time()+tick())
+local RNG = Random.new(os.time() + tick())
 
 local Library = {}
 
@@ -15,6 +15,11 @@ Library.Utility = {
     TweenBackgroundColor3 = function(self, guiObject, color, tweenTime)
         local tweenInfo = TweenInfo.new(tweenTime or 1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
         local tween = TweenService:Create(guiObject, tweenInfo, {BackgroundColor3 = color})
+        tween:Play()
+    end,
+    TweenBackgroundTransparency = function(self, guiObject, transparency, tweenTime)
+        local tweenInfo = TweenInfo.new(tweenTime or 1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        local tween = TweenService:Create(guiObject, tweenInfo, {BackgroundTransparency = transparency})
         tween:Play()
     end
 }
@@ -202,6 +207,10 @@ do
 
                 return {
                     GuiObject = main,
+                    Properties = {
+                        Tabs = {},
+                        SelectedTab = nil
+                    },
                     Functions = {
                         GetName = function()
                             return title.Text:split(" - ")[1]
@@ -257,11 +266,102 @@ do
                     gui.Functions.SetPosition(position)
                 end
 
+                function Element:CreateTab(name)
+                    local component = Library:GetComponent("Tab")
+                    local tabBtnGui = component.TabBtnGui({Name = name})
+                    local tabGui = component.TabGui({Name = name})
+
+                    tabBtnGui.Events.OnSelected:Connect(function()
+                        for _, tab in ipairs(gui.GuiObject.TabFolder:GetChildren()) do
+                            if tab:IsA("Frame") then
+                                tab.Visible = false
+                            end
+                        end
+                        tabGui.GuiObject.Visible = true
+                        gui.Properties.SelectedTab = name
+                    end)
+
+                    gui.Properties.Tabs[name] = {
+                        TabBtnGui = tabBtnGui,
+                        TabGui = tabGui
+                    }
+
+                    return component.Element(tabBtnGui, tabGui)
+                end
+
+                function Element:SelectTab(name)
+                    if gui.Properties.Tabs[name] then
+                        gui.Properties.Tabs[name].TabBtnGui.OnSelected:Fire()
+                    end
+                end
+
                 function Element:Destroy()
                     gui.Functions.Destroy()
                 end
 
                 return Element
+            end
+        },
+        ["Tab"] = {
+            TabBtnGui = function(props)
+                local onSelected = Signal.new()
+
+                local tabBtn = Instance.new("TextButton")
+                tabBtn.Name = props.Name -- "TabBtn"
+                tabBtn.Font = Enum.Font.SourceSans
+                tabBtn.Text = ""
+                tabBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
+                tabBtn.TextSize = 13
+                tabBtn.AutoButtonColor = false
+                tabBtn.AnchorPoint = Vector2.new(0.5, 0.5)
+                tabBtn.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
+                tabBtn.BackgroundTransparency = 1
+                tabBtn.BorderSizePixel = 0
+                tabBtn.Position = UDim2.fromScale(0.433, 0.0519)
+                tabBtn.Size = UDim2.fromOffset(109, 30)
+
+                local tabTitle = Instance.new("TextLabel")
+                tabTitle.Name = "TabTitle"
+                tabTitle.Font = Enum.Font.Gotham
+                tabTitle.Text = props.Name
+                tabTitle.TextColor3 = Color3.fromRGB(204, 204, 204)
+                tabTitle.TextSize = 14
+                tabTitle.TextXAlignment = Enum.TextXAlignment.Left
+                tabTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                tabTitle.BackgroundTransparency = 1
+                tabTitle.BorderSizePixel = 0
+                tabTitle.Position = UDim2.fromScale(0.07, 0)
+                tabTitle.Size = UDim2.fromOffset(101, 30)
+                tabTitle.Parent = tabBtn
+
+                local uICorner = Instance.new("UICorner")
+                uICorner.Name = "UICorner"
+                uICorner.CornerRadius = UDim.new(0, 6)
+                uICorner.Parent = tabBtn
+
+                tabBtn.MouseEnter:Connect(function()
+                    Library.Utility:TweenBackgroundTransparency(tabBtn, 0, 0.2)
+                end)
+
+                tabBtn.MouseLeave:Connect(function()
+                    Library.Utility:TweenBackgroundTransparency(tabBtn, 1, 0.2)
+                end)
+
+                return {
+                    GuiObject = tabBtn,
+                    Functions = {
+                        Destroy = function()
+                            tabBtn:Destroy()
+                        end
+                    },
+                    Events = {
+                        OnSelected = onSelected
+                    }
+                }
+            end,
+            TabGui = function(props)
+            end,
+            Element = function(tabBtnGui, tabGui)
             end
         },
         ["Label"] = {
@@ -307,7 +407,22 @@ do
                     Events = {}
                 }
             end,
-            Element = function()
+            Element = function(gui)
+                local Element = {}
+
+                function Element:GetText()
+                    return gui.Functions.GetText()
+                end
+
+                function Element:SetText(newText)
+                    gui.Functions.SetText(newText)
+                end
+
+                function Element:Destroy()
+                    gui.Functions.Destroy()
+                end
+
+                return Element
             end
         },
         ["Button"] = {
@@ -345,11 +460,11 @@ do
                 buttonTitle.Parent = button
 
                 button.MouseEnter:Connect(function()
-                        Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
+                    Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
                 end)
 
                 button.MouseLeave:Connect(function()
-                        Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(34, 34, 34), 0.2)
+                    Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(34, 34, 34), 0.2)
                 end)
 
                 return {
@@ -400,11 +515,19 @@ function Library:CreateElement(componentName, props)
     return component.Element(component.Gui(props or {}))
 end
 
+function Library:CreateElementWithArguments(componentName, ...)
+    local component = self:GetComponent(componentName)
+    return component.Element(...)
+end
+
 function Library:CreateWindow(name, gameName)
-    return self:CreateElement("Window", {
-        Name = name,
-        GameName = gameName
-    })
+    return self:CreateElement(
+        "Window",
+        {
+            Name = name,
+            GameName = gameName
+        }
+    )
 end
 
 local ScreenGui = Instance.new("ScreenGui")
