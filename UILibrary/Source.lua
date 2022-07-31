@@ -277,7 +277,7 @@ do
                                 tab.Visible = false
                             end
                         end
-                        for _, tab in ipairs(gui.GuiObject.TabHoldFrame:GetChildren()) do
+                        for _, tab in ipairs(gui.GuiObject.TabHoldFrame.TabHold:GetChildren()) do
                             if tab:IsA("TextButton") then
                                 tab.TabTitle.TextColor3 = Color3.fromRGB(204, 204, 204)
                             end
