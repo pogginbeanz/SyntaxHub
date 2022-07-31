@@ -14,8 +14,8 @@ local function randomString(length)
     return table.concat(s)
 end
 
-setValid('a', 'z')
-setValid('A', 'Z')
-setValid('0', '9')
+setValid("a", "z")
+setValid("A", "Z")
+setValid("0", "9")
 
 return randomString
