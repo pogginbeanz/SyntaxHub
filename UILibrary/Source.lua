@@ -4,8 +4,12 @@ local function importModuleFromId(id)
     return require(game:GetObjects(id)[1])
 end
 
-local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
-local StringGenerator = loadstring( game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua", true))()
+local Signal =
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
+local StringGenerator =
+    loadstring(
+    game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua", true)
+)()
 
 local RNG = Random.new(os.time() + tick())
 
@@ -40,12 +44,12 @@ do
                 tabFolder.Name = "TabFolder"
                 tabFolder.Parent = main
 
-                local tabHold2 = Instance.new("Frame")
-                tabHold2.Name = "TabHold2"
-                tabHold2.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
-                tabHold2.BorderSizePixel = 0
-                tabHold2.Position = UDim2.new(0, 0, 0.089, 1)
-                tabHold2.Size = UDim2.fromOffset(126, 289)
+                local tabHoldFrame = Instance.new("Frame")
+                tabHoldFrame.Name = "TabHoldFrame"
+                tabHoldFrame.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
+                tabHoldFrame.BorderSizePixel = 0
+                tabHoldFrame.Position = UDim2.new(0, 0, 0.089, 1)
+                tabHoldFrame.Size = UDim2.fromOffset(126, 289)
 
                 local tabHold = Instance.new("Frame")
                 tabHold.Name = "TabHold"
@@ -60,9 +64,9 @@ do
                 tabHoldLayout.SortOrder = Enum.SortOrder.LayoutOrder
                 tabHoldLayout.Parent = tabHold
 
-                tabHold.Parent = tabHold2
+                tabHold.Parent = tabHoldFrame
 
-                tabHold2.Parent = main
+                tabHoldFrame.Parent = main
 
                 local topbar = Instance.new("Frame")
                 topbar.Name = "Topbar"
@@ -271,20 +275,31 @@ do
                     local tabBtnGui = component.TabBtnGui({Name = name})
                     local tabGui = component.TabGui({Name = name})
 
-                    tabBtnGui.Events.OnSelected:Connect(function()
-                        for _, tab in ipairs(gui.GuiObject.TabFolder:GetChildren()) do
-                            if tab:IsA("Frame") then
-                                tab.Visible = false
+                    tabBtnGui.Events.OnSelected:Connect(
+                        function()
+                            for _, tab in ipairs(gui.GuiObject.TabFolder:GetChildren()) do
+                                if tab:IsA("Frame") then
+                                    tab.Visible = false
+                                end
                             end
+                            for _, tab in ipairs(gui.GuiObject.TabHoldFrame:GetChildren()) do
+                                if tab:IsA("TextButton") then
+                                    tab.TabTitle.TextColor3 = Color3.fromRGB(204, 204, 204)
+                                end
+                            end
+                            tabGui.GuiObject.Visible = true
+                            tabBtnGui.GuiObject.TabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                            gui.Properties.SelectedTab = name
                         end
-                        tabGui.GuiObject.Visible = true
-                        gui.Properties.SelectedTab = name
-                    end)
+                    )
 
                     gui.Properties.Tabs[name] = {
                         TabBtnGui = tabBtnGui,
                         TabGui = tabGui
                     }
+
+                    tabBtnGui.GuiObject.Parent = gui.GuiObject.TabHoldFrame.TabHold
+                    tabGui.GuiObject.Parent = gui.GuiObject.TabFolder
 
                     return component.Element(tabBtnGui, tabGui)
                 end
@@ -339,13 +354,24 @@ do
                 uICorner.CornerRadius = UDim.new(0, 6)
                 uICorner.Parent = tabBtn
 
-                tabBtn.MouseEnter:Connect(function()
-                    Library.Utility:TweenBackgroundTransparency(tabBtn, 0, 0.2)
-                end)
+                tabBtn.MouseEnter:Connect(
+                    function()
+                        Library.Utility:TweenBackgroundTransparency(tabBtn, 0, 0.2)
+                    end
+                )
 
-                tabBtn.MouseLeave:Connect(function()
-                    Library.Utility:TweenBackgroundTransparency(tabBtn, 1, 0.2)
-                end)
+                tabBtn.MouseLeave:Connect(
+                    function()
+                        Library.Utility:TweenBackgroundTransparency(tabBtn, 1, 0.2)
+                    end
+                )
+
+                tabBtn.Activated:Connect(
+                    function()
+                        tabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                        onSelected:Fire()
+                    end
+                )
 
                 return {
                     GuiObject = tabBtn,
@@ -360,6 +386,34 @@ do
                 }
             end,
             TabGui = function(props)
+                local tab = Instance.new("ScrollingFrame")
+                tab.Name = props.Name -- "Tab"
+                tab.AutomaticCanvasSize = Enum.AutomaticSize.Y
+                tab.CanvasSize = UDim2.new()
+                tab.ScrollBarThickness = 3
+                tab.Active = true
+                tab.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                tab.BackgroundTransparency = 1
+                tab.BorderSizePixel = 0
+                tab.Position = UDim2.fromScale(0.252, 0.12)
+                tab.Size = UDim2.fromOffset(408, 263)
+                tab.Visible = false
+
+                local tabLayout = Instance.new("UIListLayout")
+                tabLayout.Name = "TabLayout"
+                tabLayout.Padding = UDim.new(0, 5)
+                tabLayout.SortOrder = Enum.SortOrder.LayoutOrder
+                tabLayout.Parent = tab
+
+                return {
+                    GuiObject = tab,
+                    Functions = {
+                        Destroy = function()
+                            tab:Destroy()
+                        end
+                    },
+                    Events = {}
+                }
             end,
             Element = function(tabBtnGui, tabGui)
             end
@@ -459,13 +513,17 @@ do
                 buttonTitle.Size = UDim2.fromOffset(187, 42)
                 buttonTitle.Parent = button
 
-                button.MouseEnter:Connect(function()
-                    Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
-                end)
+                button.MouseEnter:Connect(
+                    function()
+                        Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
+                    end
+                )
 
-                button.MouseLeave:Connect(function()
-                    Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(34, 34, 34), 0.2)
-                end)
+                button.MouseLeave:Connect(
+                    function()
+                        Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(34, 34, 34), 0.2)
+                    end
+                )
 
                 return {
                     GuiObject = button,
