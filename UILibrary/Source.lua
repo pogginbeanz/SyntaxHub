@@ -4,19 +4,15 @@ local function importModuleFromId(id)
     return require(game:GetObjects(id)[1])
 end
 
-local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
+local Signal =
+    loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
 
 local Library = {}
 
 Library.Utility = {
     TweenBackgroundColor3 = function(self, guiObject, color, tweenTime)
-        local tweenInfo = TweenInfo.new(
-            tweenTime or 1,
-            Enum.EasingStyle.Quad,
-            Enum.EasingDirection.Out
-        )
-
-        local tween = TweenService:Create(guiObject, tweenInfo, { BackgroundColor3 = color })
+        local tweenInfo = TweenInfo.new(tweenTime or 1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        local tween = TweenService:Create(guiObject, tweenInfo, {BackgroundColor3 = color})
         tween:Play()
     end
 }
@@ -25,18 +21,54 @@ do
     Library.Components = {
         ["Window"] = {
             Gui = function()
-                
             end,
             Element = function()
-    
-            end,
+            end
         },
         ["Label"] = {
             Gui = function(props)
+                local label = Instance.new("Frame")
+                label.Name = "Label"
+                label.AnchorPoint = Vector2.new(0.5, 0.5)
+                label.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                label.Size = UDim2.fromOffset(405, 42)
 
+                local labelCorner = Instance.new("UICorner")
+                labelCorner.Name = "LabelCorner"
+                labelCorner.CornerRadius = UDim.new(0, 5)
+                labelCorner.Parent = label
+
+                local labelTitle = Instance.new("TextLabel")
+                labelTitle.Name = "LabelTitle"
+                labelTitle.Font = Enum.Font.Gotham
+                labelTitle.Text = props.Text
+                labelTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                labelTitle.TextSize = 14
+                labelTitle.TextXAlignment = Enum.TextXAlignment.Left
+                labelTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                labelTitle.BackgroundTransparency = 1
+                labelTitle.BorderSizePixel = 0
+                labelTitle.Position = UDim2.fromScale(0.035, 0)
+                labelTitle.Size = UDim2.fromOffset(187, 42)
+                labelTitle.Parent = label
+
+                return {
+                    GuiObject = label,
+                    Functions = {
+                        GetText = function()
+                            return labelTitle.Text
+                        end,
+                        SetText = function(newText)
+                            labelTitle.Text = newText
+                        end,
+                        Destroy = function()
+                            label:Destroy()
+                        end
+                    },
+                    Events = {}
+                }
             end,
             Element = function()
-
             end
         },
         ["Button"] = {
@@ -115,7 +147,7 @@ do
                 end
 
                 return Element
-            end,
+            end
         }
     }
 end
@@ -131,7 +163,7 @@ end
 
 function Library:CreateWindow()
     local props = {}
-	return self:CreateElement("Window", props)
+    return self:CreateElement("Window", props)
 end
 
 return Library
