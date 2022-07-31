@@ -21,7 +21,7 @@ do
         ["Window"] = {
             Gui = function(props)
                 local main = Instance.new("Frame")
-                main.Name = "Main"
+                main.Name = "Window"
                 main.AnchorPoint = Vector2.new(0.5, 0.5)
                 main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
                 main.BorderSizePixel = 0
