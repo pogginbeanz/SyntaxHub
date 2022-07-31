@@ -6,6 +6,7 @@ end
 
 local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
 local StringGenerator = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua", true))()
+local DraggableObject = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/DraggableObject.lua", true))()
 
 local RNG = Random.new(os.time() + tick())
 
@@ -205,6 +206,10 @@ do
 
                 main.Parent = Library.Container
 
+                local WindowDrag = DraggableObject.new(main, topbar)
+                WindowDrag:Enable()
+                local IsWindowDraggable = true
+
                 return {
                     GuiObject = main,
                     Properties = {
@@ -231,6 +236,17 @@ do
                         end,
                         SetPosition = function(position)
                             main.Position = position
+                        end,
+                        SetDraggable = function(draggable)
+                            if draggable then
+                                WindowDrag:Enable()
+                            else
+                                WindowDrag:Disable()
+                            end
+                            IsWindowDraggable = draggable
+                        end,
+                        IsDraggable = function()
+                            return IsWindowDraggable
                         end,
                         Destroy = function()
                             main:Destroy()
