@@ -206,6 +206,9 @@ do
                         GetGameName = function()
                             return title.Text:split(" - ")[2]
                         end,
+                        GetFullName = function()
+                            return title.Text
+                        end,
                         SetName = function(newName)
                             local gameName = title.Text:split(" - ")[2]
                             title.Text = ("%s - %s"):format(newName, gameName)
@@ -233,6 +236,10 @@ do
 
                 function Element:GetGameName()
                     return gui.Functions.GetGameName()
+                end
+
+                function Element:GetFullName()
+                    return gui.Functions.GetFullName()
                 end
 
                 function Element:SetName(newName)
