@@ -733,13 +733,12 @@ do
                 content.Parent = notice
 
                 Library.NoticesAmount += 1
+                local NoticeIndex = Library.NoticesAmount
 
                 table.insert(Library.Notices, {
                     GuiObject = notice,
-                    Index = Library.NoticesAmount
+                    Index = NoticeIndex
                 })
-
-                local NoticeIndex = Library.NoticesAmount
 
                 local function getPositionWithPadding(guiObject, direction, padding)
                     direction = direction:lower()
