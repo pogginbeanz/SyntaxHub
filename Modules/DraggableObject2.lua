@@ -38,14 +38,12 @@ function DraggableObject:Enable()
     end)
 
     self.InputChanged = UserInputService.InputChanged:Connect(function(input, gameProcessed)
-        if gameProcessed then return end
         if input.UserInputType == Enum.UserInputType.MouseMovement and self.Dragging then
             update()
         end
     end)
 
     self.InputEnded = UserInputService.InputEnded:Connect(function(input, gameProcessed)
-        if gameProcessed then return end
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             self.Dragging = false
         end
