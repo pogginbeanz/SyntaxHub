@@ -739,7 +739,7 @@ do
                     Index = Library.NoticesAmount
                 })
 
-                local NoticeIndex = #Library.Notices
+                local NoticeIndex = Library.NoticesAmount
 
                 local function getPositionWithPadding(guiObject, direction, padding)
                     direction = direction:lower()
