@@ -613,7 +613,7 @@ do
                 notice.AnchorPoint = Vector2.new(0, 0.5)
                 notice.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
                 notice.BackgroundTransparency = 0.1
-                notice.Position = UDim2.fromScale(0.0109, 0.929)
+                notice.Position = UDim2.fromScale(-0.2, 0.929)
                 notice.Size = UDim2.fromOffset(263, 85)
 
                 local uICorner = Instance.new('UICorner')
