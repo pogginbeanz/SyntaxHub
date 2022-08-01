@@ -739,6 +739,7 @@ do
                     GuiObject = notice,
                     Index = NoticeIndex
                 })
+                local TableIndex = #Library.Notices
 
                 local function getPositionWithPadding(guiObject, direction, padding)
                     direction = direction:lower()
@@ -759,6 +760,7 @@ do
                 end
 
                 local function tweenLeft(tweenTime)
+                    if not Library.Notices[TableIndex] then return end
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, 0)
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
                         for i, oldNotice in ipairs(Library.Notices) do
@@ -767,7 +769,7 @@ do
                                 oldNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, true)
                             end
                         end
-                        table.remove(Library.Notices, NoticeIndex)
+                        table.remove(Library.Notices, TableIndex)
                     end)
                 end
 
@@ -775,6 +777,10 @@ do
 
                 tweenRight(0.2)
                 task.delay(props.StayTime or Library.Settings.Notifications.DefaultStayTime, tweenLeft, 0.2)
+
+                close.Activated:Connect(function()
+                    tweenLeft(0.2)
+                end)
 
                 return {
                     GuiObject = notice,
