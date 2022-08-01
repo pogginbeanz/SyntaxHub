@@ -19,6 +19,7 @@ local RNG = Random.new(os.time() + tick())
 
 local Library = {}
 Library.Notices = {}
+Library.NoticesAmount = 0
 Library.Settings = {
     Notifications = {
         DefaultStayTime = 2,
@@ -731,12 +732,14 @@ do
                 content.Size = UDim2.fromOffset(249, 43)
                 content.Parent = notice
 
+                Library.NoticesAmount += 1
+
                 table.insert(Library.Notices, {
                     GuiObject = notice,
-                    Index = #Library.Notices+1
+                    Index = Library.NoticesAmount
                 })
 
-                local NoticeIndex = Library.Notices
+                local NoticeIndex = #Library.Notices
 
                 local function getPositionWithPadding(guiObject, direction, padding)
                     direction = direction:lower()
@@ -749,11 +752,11 @@ do
 
                 local function tweenRight(tweenTime)
                     for i, oldNotice in ipairs(Library.Notices) do
-                        local newPosition = getPositionWithPadding(oldNotice, "top", Library.Settings.Notifications.Padding)
+                        local newPosition = getPositionWithPadding(oldNotice.GuiObject, "top", Library.Settings.Notifications.Padding)
                         oldNotice:TweenPosition(newPosition, 'Out', 'Quad', 0.2, true)
                     end
                     local newPosition = UDim2.new(0.011, 0, 0.929, 0)
-                    notice:TweenPosition(newPosition, 'Out', 'Quad', 0.2, true)
+                    notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true)
                 end
 
                 local function tweenLeft(tweenTime)
@@ -761,8 +764,8 @@ do
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
                         for i, oldNotice in ipairs(Library.Notices) do
                             if oldNotice.Index < NoticeIndex then
-                                local _newPosition = getPositionWithPadding(oldNotice, "bottom", Library.Settings.Notifications.Padding)
-                                oldNotice:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, true)
+                                local _newPosition = getPositionWithPadding(oldNotice.GuiObject, "bottom", Library.Settings.Notifications.Padding)
+                                oldNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, true)
                             end
                         end
                         table.remove(Library.Notices, NoticeIndex)
