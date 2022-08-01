@@ -59,22 +59,21 @@ function DraggableObject:Enable()
 			dragStart 		= input.Position
 			startPos 		= Element.Position
 			--]]
-			
-			local connection 
-			connection = input.Changed:Connect(function()
-				if input.UserInputState == Enum.UserInputState.End and (self.Dragging or preparingToDrag) then
-					self.Dragging = false
-					connection:Disconnect()
-					
-					if self.DragEnded and not preparingToDrag then
-						self.DragEnded()
-					end
-					
-					preparingToDrag = false
-				end
-			end)
 		end
 	end)
+
+    self.InputEnded = UserInputService.InputEnded:Connect(function(input, gameProcessed)
+        if gameProcessed then return end
+        if input.UserInputState == Enum.UserInputState.End and (self.Dragging or preparingToDrag) then
+            self.Dragging = false
+            
+            if self.DragEnded and not preparingToDrag then
+                self.DragEnded()
+            end
+            
+            preparingToDrag = false
+        end
+    end)
 	
 	self.InputChanged = topbar.InputChanged:Connect(function(input, gameProcessed)
         if gameProcessed then return end
