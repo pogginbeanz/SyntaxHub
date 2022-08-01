@@ -6,7 +6,7 @@ end
 
 local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
 local StringGenerator = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua", true))()
-local DraggableObject = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/DraggableObject2.lua", true))()
+local DraggableObject = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/DraggableObject.lua", true))()
 
 local RNG = Random.new(os.time() + tick())
 
