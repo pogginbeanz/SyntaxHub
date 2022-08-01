@@ -772,6 +772,8 @@ do
                     end)
                 end
 
+                notice.Parent = Library.Container.Notifications
+
                 tweenRight(0.2)
                 task.delay(props.StayTime or Library.Settings.Notifications.DefaultStayTime, tweenLeft, 0.2)
 
