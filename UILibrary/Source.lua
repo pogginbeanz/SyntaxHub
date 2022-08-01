@@ -754,7 +754,7 @@ do
                 end
 
                 local function tweenLeft(tweenTime)
-                    repr(Library.Notices, {pretty = true})
+                    print(repr(Library.Notices, {pretty = true}))
                     if not Library.Notices[TableIndex] then return end
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, 0)
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
