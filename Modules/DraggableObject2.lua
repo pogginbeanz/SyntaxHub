@@ -25,14 +25,14 @@ function DraggableObject:Enable()
     local topbar = self.Topbar
 
     local function update()
-        local vector = UserInputService:GetMouseLocation() + self.DragOffset
+        local vector = self.DragOffset + UserInputService:GetMouseLocation()
         local position = UDim2_new(0, vector.X, 0, vector.Y)
         object.Position = position
     end
 
     self.InputBegan = topbar.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
-            self.DragOffset = UserInputService:GetMouseLocation() - object.AbsolutePosition
+            self.DragOffset = object.AbsolutePosition - UserInputService:GetMouseLocation()
             self.Dragging = true
         end
     end)
