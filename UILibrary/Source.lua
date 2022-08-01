@@ -744,9 +744,9 @@ do
                 local function getPositionWithPadding(guiObject, direction, padding)
                     direction = direction:lower()
                     if direction == "top" then
-                        return UDim2.new(guiObject.Position.X.Scale, 0, guiObject.Position.Y.Scale - (guiObject.Size.Y.Scale), -padding)
+                        return UDim2.new(guiObject.Position.X.Scale, 0, guiObject.Position.Y.Scale, -(guiObject.Size.Y.Offset + padding))
                     elseif direction == "bottom" then
-                        return UDim2.new(guiObject.Position.X.Scale, 0, guiObject.Position.Y.Scale + (guiObject.Size.Y.Scale), padding)
+                        return UDim2.new(guiObject.Position.X.Scale, 0, guiObject.Position.Y.Scale, (guiObject.Size.Y.Offset + padding))
                     end
                 end
 
