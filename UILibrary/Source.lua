@@ -4,16 +4,10 @@ local function importModuleFromId(id)
     return require(game:GetObjects(id)[1])
 end
 
-local Signal =
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua', true))()
-local StringGenerator =
-    loadstring(
-    game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua', true)
-)()
-local DraggableObject =
-    loadstring(
-    game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/DraggableObject.lua', true)
-)()
+local Signal = loadstring(game:HttpGet('https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua', true))()
+local StringGenerator = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua', true))()
+local DraggableObject = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/DraggableObject.lua', true))()
+local repr = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/repr.lua', true))()
 
 local RNG = Random.new(os.time() + tick())
 
@@ -760,6 +754,7 @@ do
                 end
 
                 local function tweenLeft(tweenTime)
+                    repr(Library.Notices, {pretty = true})
                     if not Library.Notices[TableIndex] then return end
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, 0)
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
