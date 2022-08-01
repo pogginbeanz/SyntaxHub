@@ -753,7 +753,7 @@ do
                 local function tweenRight(tweenTime)
                     for i, oldNotice in ipairs(Library.Notices) do
                         local newPosition = getPositionWithPadding(oldNotice.GuiObject, "top", Library.Settings.Notifications.Padding)
-                        oldNotice:TweenPosition(newPosition, 'Out', 'Quad', 0.2, true)
+                        oldNotice.GuiObject:TweenPosition(newPosition, 'Out', 'Quad', 0.2, true)
                     end
                     local newPosition = UDim2.new(0.011, 0, 0.929, 0)
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true)
