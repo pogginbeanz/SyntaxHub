@@ -4,22 +4,11 @@ local function importModuleFromId(id)
     return require(game:GetObjects(id)[1])
 end
 
-local Signal =
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua', true))()
-local StringGenerator =
-    loadstring(
-    game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua', true)
-)()
-local DraggableObject =
-    loadstring(
-    game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/DraggableObject.lua', true)
-)()
-local SoundPlayer =
-    loadstring(
-    game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/SoundPlayer.lua', true)
-)()
-local repr =
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/repr.lua', true))()
+local Signal = loadstring(game:HttpGet('https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua', true))()
+local StringGenerator = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua', true))()
+local DraggableObject = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/DraggableObject.lua', true))()
+local SoundPlayer = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/SoundPlayer.lua', true))()
+local repr = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/repr.lua', true))()
 
 local RNG = Random.new(os.time() + tick())
 
@@ -41,6 +30,11 @@ Library.Utility = {
     TweenBackgroundTransparency = function(self, guiObject, transparency, tweenTime)
         local tweenInfo = TweenInfo.new(tweenTime or 1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
         local tween = TweenService:Create(guiObject, tweenInfo, {BackgroundTransparency = transparency})
+        tween:Play()
+    end,
+    TweenTextColor3 = function(self, guiObject, color, tweenTime)
+        local tweenInfo = TweenInfo.new(tweenTime or 1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
+        local tween = TweenService:Create(guiObject, tweenInfo, {TextColor3 = color})
         tween:Play()
     end
 }
@@ -380,10 +374,10 @@ do
                         function()
                             for _, tab in pairs(gui.Properties.Tabs) do
                                 tab.TabGui.GuiObject.Visible = false
-                                tab.TabBtnGui.GuiObject.TabTitle.TextColor3 = Color3.fromRGB(204, 204, 204)
+                                Library.Utility:TweenTextColor3(tab.TabBtnGui.GuiObject.TabTitle, Color3.fromRGB(204, 204, 204), 0.2)
                             end
                             tabGui.GuiObject.Visible = true
-                            tabBtnGui.GuiObject.TabTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                            Library.Utility:TweenTextColor3(tabBtnGui.GuiObject.TabTitle, Color3.fromRGB(255, 255, 255), 0.2)
                             gui.Properties.SelectedTab = name
                         end
                     )
