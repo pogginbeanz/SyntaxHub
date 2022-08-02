@@ -791,6 +791,7 @@ do
                 task.delay(props.StayTime or Library.Settings.Notifications.DefaultStayTime, function()
                     tweenLeft(0.2)
                 end)
+                SoundPlayer:Play(noticeType.SoundProps)
 
                 close.Activated:Connect(function()
                     tweenLeft(0.2)
