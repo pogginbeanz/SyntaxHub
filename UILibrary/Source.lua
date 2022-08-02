@@ -756,7 +756,7 @@ do
                     --print(repr(Library.Notices, {pretty = true}))
                     if not NoticeData.Active then return end
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, notice.Position.Y.Offset)
-                    notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, false, function()
+                    notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
                         for i, activeNotice in ipairs(Library:GetActiveNotices()) do
                             print(i, NoticeIndex)
                             if i < NoticeIndex then
