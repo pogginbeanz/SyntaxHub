@@ -25,7 +25,6 @@ local RNG = Random.new(os.time() + tick())
 
 local Library = {}
 Library.Notices = {}
-Library.NoticeUtils = {}
 Library.Settings = {
     Notifications = {
         DefaultStayTime = 4,
@@ -992,10 +991,8 @@ function Library:GetActiveNotices()
     return activeNotices
 end
 
-function Library.NoticeUtils:Notify(hubName, text, stayTime)
-    return Library:CreateElement(
-        'Notice',
-        {
+function Library:Notify(hubName, text, stayTime)
+    return Library:CreateElement('Notice', {
             Name = hubName,
             Type = 'Notification',
             Text = text,
@@ -1004,10 +1001,8 @@ function Library.NoticeUtils:Notify(hubName, text, stayTime)
     )
 end
 
-function Library.NoticeUtils:Warn(hubName, text, stayTime)
-    return Library:CreateElement(
-        'Notice',
-        {
+function Library:Warn(hubName, text, stayTime)
+    return Library:CreateElement('Notice', {
             Name = hubName,
             Type = 'Warning',
             Text = text,
@@ -1016,10 +1011,8 @@ function Library.NoticeUtils:Warn(hubName, text, stayTime)
     )
 end
 
-function Library.NoticeUtils:Error(hubName, text, stayTime)
-    return Library:CreateElement(
-        'Notice',
-        {
+function Library:Error(hubName, text, stayTime)
+    return Library:CreateElement('Notice', {
             Name = hubName,
             Type = 'Error',
             Text = text,
