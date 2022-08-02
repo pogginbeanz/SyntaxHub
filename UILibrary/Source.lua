@@ -16,7 +16,7 @@ Library.Notices = {}
 Library.NoticesAmount = 0
 Library.Settings = {
     Notifications = {
-        DefaultStayTime = 2,
+        DefaultStayTime = 4,
         Padding = 5
     }
 }
