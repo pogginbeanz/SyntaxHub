@@ -758,8 +758,9 @@ do
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, notice.Position.Y.Offset)
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
                         for i, activeNotice in ipairs(Library:GetActiveNotices()) do
-                            print(i, NoticeIndex)
-                            if i < NoticeIndex then
+                            local activeNoticeIndex = table.find(Library.Notices, activeNotice)
+                            print(activeNoticeIndex, NoticeIndex)
+                            if activeNoticeIndex < NoticeIndex then
                                 local _newPosition = getPositionWithPadding(activeNotice.GuiObject, "bottom", Library.Settings.Notifications.Padding)
                                 activeNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, false)
                             end
