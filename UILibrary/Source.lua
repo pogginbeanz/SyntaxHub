@@ -1,14 +1,14 @@
-local TweenService = game:GetService('TweenService')
+local TweenService = game:GetService("TweenService")
 
 local function importModuleFromId(id)
     return require(game:GetObjects(id)[1])
 end
 
-local Signal = loadstring(game:HttpGet('https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua', true))()
-local StringGenerator = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua', true))()
-local DraggableObject = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/DraggableObject.lua', true))()
+local Signal = loadstring(game:HttpGet("https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua", true))()
+local StringGenerator = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua", true))()
+local DraggableObject = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/DraggableObject.lua", true))()
 local SoundPlayer = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/SoundPlayer.lua", true))()
-local repr = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/repr.lua', true))()
+local repr = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/repr.lua", true))()
 
 local RNG = Random.new(os.time() + tick())
 
@@ -37,10 +37,10 @@ Library.Utility = {
 
 do
     Library.Components = {
-        ['Window'] = {
+        ["Window"] = {
             Gui = function(props)
-                local main = Instance.new('Frame')
-                main.Name = 'Window-' .. #Library.Container:GetChildren() + 1
+                local main = Instance.new("Frame")
+                main.Name = "Window-" .. #Library.Container:GetChildren() + 1
                 main.AnchorPoint = Vector2.new(0.5, 0.5)
                 main.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
                 main.BorderSizePixel = 0
@@ -48,26 +48,26 @@ do
                 main.Size = UDim2.fromOffset(560, 319)
                 main.ClipsDescendants = true
 
-                local tabFolder = Instance.new('Folder')
-                tabFolder.Name = 'TabFolder'
+                local tabFolder = Instance.new("Folder")
+                tabFolder.Name = "TabFolder"
                 tabFolder.Parent = main
 
-                local tabHoldFrame = Instance.new('Frame')
-                tabHoldFrame.Name = 'TabHoldFrame'
+                local tabHoldFrame = Instance.new("Frame")
+                tabHoldFrame.Name = "TabHoldFrame"
                 tabHoldFrame.BackgroundColor3 = Color3.fromRGB(36, 36, 36)
                 tabHoldFrame.BorderSizePixel = 0
                 tabHoldFrame.Position = UDim2.new(0, 0, 0.089, 1)
                 tabHoldFrame.Size = UDim2.fromOffset(126, 289)
 
-                local tabHold = Instance.new('Frame')
-                tabHold.Name = 'TabHold'
+                local tabHold = Instance.new("Frame")
+                tabHold.Name = "TabHold"
                 tabHold.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                 tabHold.BackgroundTransparency = 1
                 tabHold.Position = UDim2.fromScale(0.05, 0.0262)
                 tabHold.Size = UDim2.fromScale(0.95, 0.976)
 
-                local tabHoldLayout = Instance.new('UIListLayout')
-                tabHoldLayout.Name = 'TabHoldLayout'
+                local tabHoldLayout = Instance.new("UIListLayout")
+                tabHoldLayout.Name = "TabHoldLayout"
                 tabHoldLayout.Padding = UDim.new(0, 4)
                 tabHoldLayout.SortOrder = Enum.SortOrder.LayoutOrder
                 tabHoldLayout.Parent = tabHold
@@ -76,18 +76,18 @@ do
 
                 tabHoldFrame.Parent = main
 
-                local topbar = Instance.new('Frame')
-                topbar.Name = 'Topbar'
+                local topbar = Instance.new("Frame")
+                topbar.Name = "Topbar"
                 topbar.AnchorPoint = Vector2.new(0.5, 0)
                 topbar.BackgroundColor3 = Color3.fromRGB(43, 43, 43)
                 topbar.BorderSizePixel = 0
                 topbar.Position = UDim2.fromScale(0.5, 0)
                 topbar.Size = UDim2.new(1, 0, 0, 28)
 
-                local title = Instance.new('TextLabel')
-                title.Name = 'Title'
+                local title = Instance.new("TextLabel")
+                title.Name = "Title"
                 title.Font = Enum.Font.GothamMedium
-                title.Text = ('%s - %s'):format(props.Name, props.GameName)
+                title.Text = ("%s - %s"):format(props.Name, props.GameName)
                 title.TextColor3 = Color3.fromRGB(255, 255, 255)
                 title.TextSize = 13
                 title.TextWrapped = true
@@ -100,8 +100,8 @@ do
                 title.ZIndex = 2
                 title.Parent = topbar
 
-                local buttons = Instance.new('Frame')
-                buttons.Name = 'Buttons'
+                local buttons = Instance.new("Frame")
+                buttons.Name = "Buttons"
                 buttons.AnchorPoint = Vector2.new(1, 0)
                 buttons.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                 buttons.BackgroundTransparency = 1
@@ -109,10 +109,10 @@ do
                 buttons.Position = UDim2.fromScale(1, 0)
                 buttons.Size = UDim2.fromOffset(121, 27)
 
-                local close = Instance.new('TextButton')
-                close.Name = 'Close'
+                local close = Instance.new("TextButton")
+                close.Name = "Close"
                 close.Font = Enum.Font.SourceSans
-                close.Text = ''
+                close.Text = ""
                 close.TextColor3 = Color3.fromRGB(0, 0, 0)
                 close.TextSize = 14
                 close.AutoButtonColor = false
@@ -125,14 +125,14 @@ do
                 close.Size = UDim2.fromOffset(21, 21)
                 close.ZIndex = 2
 
-                local uICorner = Instance.new('UICorner')
-                uICorner.Name = 'UICorner'
+                local uICorner = Instance.new("UICorner")
+                uICorner.Name = "UICorner"
                 uICorner.CornerRadius = UDim.new(0, 5)
                 uICorner.Parent = close
 
-                local icon = Instance.new('ImageLabel')
-                icon.Name = 'Icon'
-                icon.Image = 'rbxassetid://3926305904'
+                local icon = Instance.new("ImageLabel")
+                icon.Name = "Icon"
+                icon.Image = "rbxassetid://3926305904"
                 icon.ImageRectOffset = Vector2.new(284, 4)
                 icon.ImageRectSize = Vector2.new(24, 24)
                 icon.ScaleType = Enum.ScaleType.Fit
@@ -147,8 +147,8 @@ do
 
                 close.Parent = buttons
 
-                local uIListLayout = Instance.new('UIListLayout')
-                uIListLayout.Name = 'UIListLayout'
+                local uIListLayout = Instance.new("UIListLayout")
+                uIListLayout.Name = "UIListLayout"
                 uIListLayout.Padding = UDim.new(0, 2)
                 uIListLayout.FillDirection = Enum.FillDirection.Horizontal
                 uIListLayout.HorizontalAlignment = Enum.HorizontalAlignment.Right
@@ -156,18 +156,18 @@ do
                 uIListLayout.VerticalAlignment = Enum.VerticalAlignment.Center
                 uIListLayout.Parent = buttons
 
-                local uIPadding = Instance.new('UIPadding')
-                uIPadding.Name = 'UIPadding'
+                local uIPadding = Instance.new("UIPadding")
+                uIPadding.Name = "UIPadding"
                 uIPadding.PaddingBottom = UDim.new(0, 4)
                 uIPadding.PaddingLeft = UDim.new(0, 4)
                 uIPadding.PaddingRight = UDim.new(0, 4)
                 uIPadding.PaddingTop = UDim.new(0, 4)
                 uIPadding.Parent = buttons
 
-                local settings = Instance.new('TextButton')
-                settings.Name = 'Settings'
+                local settings = Instance.new("TextButton")
+                settings.Name = "Settings"
                 settings.Font = Enum.Font.SourceSans
-                settings.Text = ''
+                settings.Text = ""
                 settings.TextColor3 = Color3.fromRGB(0, 0, 0)
                 settings.TextSize = 14
                 settings.AutoButtonColor = false
@@ -179,14 +179,14 @@ do
                 settings.Size = UDim2.fromOffset(21, 21)
                 settings.ZIndex = 2
 
-                local uICorner1 = Instance.new('UICorner')
-                uICorner1.Name = 'UICorner'
+                local uICorner1 = Instance.new("UICorner")
+                uICorner1.Name = "UICorner"
                 uICorner1.CornerRadius = UDim.new(0, 5)
                 uICorner1.Parent = settings
 
-                local icon1 = Instance.new('ImageLabel')
-                icon1.Name = 'Icon'
-                icon1.Image = 'rbxassetid://3926307971'
+                local icon1 = Instance.new("ImageLabel")
+                icon1.Name = "Icon"
+                icon1.Image = "rbxassetid://3926307971"
                 icon1.ImageRectOffset = Vector2.new(324, 124)
                 icon1.ImageRectSize = Vector2.new(36, 36)
                 icon1.ScaleType = Enum.ScaleType.Fit
@@ -203,8 +203,8 @@ do
 
                 buttons.Parent = topbar
 
-                local separator = Instance.new('Frame')
-                separator.Name = 'Separator'
+                local separator = Instance.new("Frame")
+                separator.Name = "Separator"
                 separator.AnchorPoint = Vector2.new(0.5, 0.5)
                 separator.BackgroundColor3 = Color3.fromRGB(44, 120, 224)
                 separator.BorderSizePixel = 0
@@ -229,21 +229,21 @@ do
                     },
                     Functions = {
                         GetName = function()
-                            return title.Text:split(' - ')[1]
+                            return title.Text:split(" - ")[1]
                         end,
                         GetGameName = function()
-                            return title.Text:split(' - ')[2]
+                            return title.Text:split(" - ")[2]
                         end,
                         GetFullName = function()
                             return title.Text
                         end,
                         SetName = function(newName)
-                            local gameName = title.Text:split(' - ')[2]
-                            title.Text = ('%s - %s'):format(newName, gameName)
+                            local gameName = title.Text:split(" - ")[2]
+                            title.Text = ("%s - %s"):format(newName, gameName)
                         end,
                         SetGameName = function(newGameName)
-                            local name = title.Text:split(' - ')[1]
-                            title.Text = ('%s - %s'):format(name, newGameName)
+                            local name = title.Text:split(" - ")[1]
+                            title.Text = ("%s - %s"):format(name, newGameName)
                         end,
                         SetPosition = function(position)
                             main.Position = position
@@ -294,7 +294,7 @@ do
                 end
 
                 function Element:CreateTab(name)
-                    local component = Library:GetComponent('Tab')
+                    local component = Library:GetComponent("Tab")
                     local tabBtnGui = component.TabBtnGui({Name = name})
                     local tabGui = component.TabGui({Name = name})
 
@@ -334,14 +334,14 @@ do
                 return Element
             end
         },
-        ['Tab'] = {
+        ["Tab"] = {
             TabBtnGui = function(props)
                 local onSelected = Signal.new()
 
-                local tabBtn = Instance.new('TextButton')
+                local tabBtn = Instance.new("TextButton")
                 tabBtn.Name = props.Name -- "TabBtn"
                 tabBtn.Font = Enum.Font.SourceSans
-                tabBtn.Text = ''
+                tabBtn.Text = ""
                 tabBtn.TextColor3 = Color3.fromRGB(0, 0, 0)
                 tabBtn.TextSize = 13
                 tabBtn.AutoButtonColor = false
@@ -352,8 +352,8 @@ do
                 tabBtn.Position = UDim2.fromScale(0.433, 0.0519)
                 tabBtn.Size = UDim2.fromOffset(109, 30)
 
-                local tabTitle = Instance.new('TextLabel')
-                tabTitle.Name = 'TabTitle'
+                local tabTitle = Instance.new("TextLabel")
+                tabTitle.Name = "TabTitle"
                 tabTitle.Font = Enum.Font.Gotham
                 tabTitle.Text = props.Name
                 tabTitle.TextColor3 = Color3.fromRGB(204, 204, 204)
@@ -366,8 +366,8 @@ do
                 tabTitle.Size = UDim2.fromOffset(101, 30)
                 tabTitle.Parent = tabBtn
 
-                local uICorner = Instance.new('UICorner')
-                uICorner.Name = 'UICorner'
+                local uICorner = Instance.new("UICorner")
+                uICorner.Name = "UICorner"
                 uICorner.CornerRadius = UDim.new(0, 6)
                 uICorner.Parent = tabBtn
 
@@ -402,7 +402,7 @@ do
                 }
             end,
             TabGui = function(props)
-                local tab = Instance.new('ScrollingFrame')
+                local tab = Instance.new("ScrollingFrame")
                 tab.Name = props.Name -- "Tab"
                 tab.AutomaticCanvasSize = Enum.AutomaticSize.Y
                 tab.CanvasSize = UDim2.new()
@@ -415,8 +415,8 @@ do
                 tab.Size = UDim2.fromOffset(408, 263)
                 tab.Visible = false
 
-                local tabLayout = Instance.new('UIListLayout')
-                tabLayout.Name = 'TabLayout'
+                local tabLayout = Instance.new("UIListLayout")
+                tabLayout.Name = "TabLayout"
                 tabLayout.Padding = UDim.new(0, 5)
                 tabLayout.SortOrder = Enum.SortOrder.LayoutOrder
                 tabLayout.Parent = tab
@@ -437,21 +437,21 @@ do
                 return Element
             end
         },
-        ['Label'] = {
+        ["Label"] = {
             Gui = function(props)
-                local label = Instance.new('Frame')
-                label.Name = 'Label'
+                local label = Instance.new("Frame")
+                label.Name = "Label"
                 label.AnchorPoint = Vector2.new(0.5, 0.5)
                 label.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
                 label.Size = UDim2.fromOffset(405, 42)
 
-                local labelCorner = Instance.new('UICorner')
-                labelCorner.Name = 'LabelCorner'
+                local labelCorner = Instance.new("UICorner")
+                labelCorner.Name = "LabelCorner"
                 labelCorner.CornerRadius = UDim.new(0, 5)
                 labelCorner.Parent = label
 
-                local labelTitle = Instance.new('TextLabel')
-                labelTitle.Name = 'LabelTitle'
+                local labelTitle = Instance.new("TextLabel")
+                labelTitle.Name = "LabelTitle"
                 labelTitle.Font = Enum.Font.Gotham
                 labelTitle.Text = props.Text
                 labelTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -498,12 +498,12 @@ do
                 return Element
             end
         },
-        ['Button'] = {
+        ["Button"] = {
             Gui = function(props)
-                local button = Instance.new('TextButton')
-                button.Name = 'Button'
+                local button = Instance.new("TextButton")
+                button.Name = "Button"
                 button.Font = Enum.Font.SourceSans
-                button.Text = ''
+                button.Text = ""
                 button.TextColor3 = Color3.fromRGB(0, 0, 0)
                 button.TextSize = 14
                 button.AutoButtonColor = false
@@ -513,13 +513,13 @@ do
                 button.Position = UDim2.fromScale(0.494, 0.0798)
                 button.Size = UDim2.fromOffset(405, 42)
 
-                local buttonCorner = Instance.new('UICorner')
-                buttonCorner.Name = 'ButtonCorner'
+                local buttonCorner = Instance.new("UICorner")
+                buttonCorner.Name = "ButtonCorner"
                 buttonCorner.CornerRadius = UDim.new(0, 5)
                 buttonCorner.Parent = button
 
-                local buttonTitle = Instance.new('TextLabel')
-                buttonTitle.Name = 'ButtonTitle'
+                local buttonTitle = Instance.new("TextLabel")
+                buttonTitle.Name = "ButtonTitle"
                 buttonTitle.Font = Enum.Font.Gotham
                 buttonTitle.Text = props.Text
                 buttonTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -580,33 +580,33 @@ do
                 return Element
             end
         },
-        ['Notice'] = {
+        ["Notice"] = {
             Gui = function(props)
                 local removing = Signal.new()
                 local removed = Signal.new()
 
                 local noticeTypes = {
-                    ['Notification'] = {
+                    ["Notification"] = {
                         Color = Color3.fromRGB(44, 120, 224),
-                        Icon = 'rbxassetid://10444486616',
+                        Icon = "rbxassetid://10444486616",
                         SoundProps = {
                             SoundId = "rbxassetid://10446862686",
                             Volume = 0.2,
                             DestroyOnEnded = true
                         }
                     },
-                    ['Warning'] = {
+                    ["Warning"] = {
                         Color = Color3.fromRGB(255, 170, 0),
-                        Icon = 'rbxassetid://10444719767',
+                        Icon = "rbxassetid://10444719767",
                         SoundProps = {
                             SoundId = "rbxassetid://10446865452",
                             Volume = 0.2,
                             DestroyOnEnded = true
                         }
                     },
-                    ['Error'] = {
+                    ["Error"] = {
                         Color = Color3.fromRGB(255, 0, 0),
-                        Icon = 'rbxassetid://10444699605',
+                        Icon = "rbxassetid://10444699605",
                         SoundProps = {
                             SoundId = "rbxassetid://10446871400",
                             Volume = 0.2,
@@ -619,33 +619,33 @@ do
                     return
                 end
 
-                local notice = Instance.new('Frame')
-                notice.Name = 'Notice'
+                local notice = Instance.new("Frame")
+                notice.Name = "Notice"
                 notice.AnchorPoint = Vector2.new(0, 0.5)
                 notice.BackgroundColor3 = Color3.fromRGB(30, 30, 30)
                 notice.BackgroundTransparency = 0.1
                 notice.Position = UDim2.fromScale(-0.2, 0.929)
                 notice.Size = UDim2.fromOffset(263, 85)
 
-                local uICorner = Instance.new('UICorner')
-                uICorner.Name = 'UICorner'
+                local uICorner = Instance.new("UICorner")
+                uICorner.Name = "UICorner"
                 uICorner.Parent = notice
 
-                local topbar = Instance.new('Frame')
-                topbar.Name = 'Topbar'
+                local topbar = Instance.new("Frame")
+                topbar.Name = "Topbar"
                 topbar.AnchorPoint = Vector2.new(0.5, 0)
                 topbar.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
                 topbar.BorderSizePixel = 0
                 topbar.Position = UDim2.fromScale(0.5, 0)
                 topbar.Size = UDim2.fromOffset(263, 26)
 
-                local uICorner1 = Instance.new('UICorner')
-                uICorner1.Name = 'UICorner'
+                local uICorner1 = Instance.new("UICorner")
+                uICorner1.Name = "UICorner"
                 uICorner1.CornerRadius = UDim.new(0, 6)
                 uICorner1.Parent = topbar
 
-                local cornerCover = Instance.new('Frame')
-                cornerCover.Name = 'CornerCover'
+                local cornerCover = Instance.new("Frame")
+                cornerCover.Name = "CornerCover"
                 cornerCover.AnchorPoint = Vector2.new(0.5, 1)
                 cornerCover.BackgroundColor3 = Color3.fromRGB(47, 47, 47)
                 cornerCover.BorderSizePixel = 0
@@ -653,8 +653,8 @@ do
                 cornerCover.Size = UDim2.fromOffset(263, 8)
                 cornerCover.Parent = topbar
 
-                local title = Instance.new('TextLabel')
-                title.Name = 'Title'
+                local title = Instance.new("TextLabel")
+                title.Name = "Title"
                 title.Font = Enum.Font.GothamMedium
                 title.Text = ("%s - %s"):format(props.Name, props.Type)
                 title.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -668,8 +668,8 @@ do
                 title.Size = UDim2.fromOffset(211, 26)
                 title.Parent = topbar
 
-                local separator = Instance.new('Frame')
-                separator.Name = 'Separator'
+                local separator = Instance.new("Frame")
+                separator.Name = "Separator"
                 separator.AnchorPoint = Vector2.new(0.5, 0.5)
                 separator.BackgroundColor3 = noticeType.Color
                 separator.BorderSizePixel = 0
@@ -677,8 +677,8 @@ do
                 separator.Size = UDim2.new(1, 0, 0, 1)
                 separator.Parent = topbar
 
-                local icon = Instance.new('ImageLabel')
-                icon.Name = 'Icon'
+                local icon = Instance.new("ImageLabel")
+                icon.Name = "Icon"
                 icon.AnchorPoint = Vector2.new(0.5, 0.5)
                 icon.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                 icon.BackgroundTransparency = 1
@@ -688,10 +688,10 @@ do
                 icon.Image = noticeType.Icon
                 icon.Parent = topbar
 
-                local close = Instance.new('TextButton')
-                close.Name = 'Close'
+                local close = Instance.new("TextButton")
+                close.Name = "Close"
                 close.Font = Enum.Font.SourceSans
-                close.Text = ''
+                close.Text = ""
                 close.TextColor3 = Color3.fromRGB(0, 0, 0)
                 close.TextSize = 14
                 close.AutoButtonColor = false
@@ -704,14 +704,14 @@ do
                 close.Size = UDim2.fromOffset(21, 21)
                 close.ZIndex = 2
 
-                local uICorner2 = Instance.new('UICorner')
-                uICorner2.Name = 'UICorner'
+                local uICorner2 = Instance.new("UICorner")
+                uICorner2.Name = "UICorner"
                 uICorner2.CornerRadius = UDim.new(0, 5)
                 uICorner2.Parent = close
 
-                local icon1 = Instance.new('ImageLabel')
-                icon1.Name = 'Icon'
-                icon1.Image = 'rbxassetid://3926305904'
+                local icon1 = Instance.new("ImageLabel")
+                icon1.Name = "Icon"
+                icon1.Image = "rbxassetid://3926305904"
                 icon1.ImageRectOffset = Vector2.new(284, 4)
                 icon1.ImageRectSize = Vector2.new(24, 24)
                 icon1.ScaleType = Enum.ScaleType.Fit
@@ -728,8 +728,8 @@ do
 
                 topbar.Parent = notice
 
-                local content = Instance.new('TextLabel')
-                content.Name = 'Content'
+                local content = Instance.new("TextLabel")
+                content.Name = "Content"
                 content.Font = Enum.Font.Gotham
                 content.Text = props.Text or ""
                 content.TextColor3 = Color3.fromRGB(255, 255, 255)
@@ -762,23 +762,23 @@ do
                 local function tweenRight(tweenTime)
                     for i, activeNotice in ipairs(Library:GetActiveNotices()) do
                         local newPosition = getPositionWithPadding(activeNotice.GuiObject, "top", Library.Settings.Notifications.Padding)
-                        activeNotice.GuiObject:TweenPosition(newPosition, 'Out', 'Quad', 0.2, false)
+                        activeNotice.GuiObject:TweenPosition(newPosition, "Out", "Quad", 0.2, false)
                     end
                     local newPosition = UDim2.new(0.011, 0, 0.929, 0)
-                    notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true)
+                    notice:TweenPosition(newPosition, "Out", "Quad", tweenTime, true)
                 end
 
                 local function tweenLeft(tweenTime)
                     --print(repr(Library.Notices, {pretty = true}))
                     if not NoticeData.Active then return end
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, notice.Position.Y.Offset)
-                    notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
+                    notice:TweenPosition(newPosition, "Out", "Quad", tweenTime, true, function()
                         for i, activeNotice in ipairs(Library:GetActiveNotices()) do
                             local activeNoticeIndex = table.find(Library.Notices, activeNotice)
                             print(activeNoticeIndex, NoticeIndex)
                             if activeNoticeIndex < NoticeIndex then
                                 local _newPosition = getPositionWithPadding(activeNotice.GuiObject, "bottom", Library.Settings.Notifications.Padding)
-                                activeNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, false)
+                                activeNotice.GuiObject:TweenPosition(_newPosition, "Out", "Quad", 0.2, false)
                             end
                         end
                         NoticeData.Active = false
@@ -862,7 +862,7 @@ end
 
 function Library:CreateWindow(name, gameName)
     return self:CreateElement(
-        'Window',
+        "Window",
         {
             Name = name,
             GameName = gameName
@@ -908,16 +908,16 @@ function Library.NoticeUtils:Error(hubName, text, stayTime)
 end
 
 local function SetupContainer()
-    local ScreenGui = Instance.new('ScreenGui')
+    local ScreenGui = Instance.new("ScreenGui")
     ScreenGui.Name = StringGenerator(RNG:NextInteger(20, 30))
     ScreenGui.ResetOnSpawn = false
     ScreenGui.IgnoreGuiInset = true
 
-    local notifications = Instance.new('Folder')
-    notifications.Name = 'Notifications'
+    local notifications = Instance.new("Folder")
+    notifications.Name = "Notifications"
     notifications.Parent = ScreenGui
 
-    ScreenGui.Parent = game:GetService('CoreGui')
+    ScreenGui.Parent = game:GetService("CoreGui")
     Library.Container = ScreenGui
 end
 SetupContainer()
