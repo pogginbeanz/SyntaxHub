@@ -853,7 +853,7 @@ function Library:CreateWindow(name, gameName)
     )
 end
 
-function Library:GetActiveNotices())
+function Library:GetActiveNotices()
     local activeNotices = {}
     for i, notice in ipairs(Library.Notices) do
         if notice.Active then
