@@ -753,7 +753,7 @@ do
                 end
 
                 local function tweenLeft(tweenTime)
-                    print(repr(Library.Notices, {pretty = true}))
+                    --print(repr(Library.Notices, {pretty = true}))
                     if not NoticeData.Active then return end
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, notice.Position.Y.Offset)
                     NoticeData.Active = false
