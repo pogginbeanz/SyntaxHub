@@ -759,7 +759,7 @@ do
                     NoticeData.Active = false
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
                         for i, oldNotice in ipairs(Library:GetActiveNotices()) do
-                            print(i < NoticeIndex)
+                            print(i, NoticeIndex)
                             if i < NoticeIndex then
                                 local _newPosition = getPositionWithPadding(oldNotice.GuiObject, "bottom", Library.Settings.Notifications.Padding)
                                 oldNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, true)
