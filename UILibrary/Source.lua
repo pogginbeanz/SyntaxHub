@@ -744,11 +744,9 @@ do
                 end
 
                 local function tweenRight(tweenTime)
-                    for i, oldNotice in ipairs(Library.Notices) do
-                        if oldNotice.Active then
-                            local newPosition = getPositionWithPadding(oldNotice.GuiObject, "top", Library.Settings.Notifications.Padding)
-                            oldNotice.GuiObject:TweenPosition(newPosition, 'Out', 'Quad', 0.2, true)
-                        end
+                    for i, oldNotice in ipairs(Library:GetActiveNotices()) do
+                        local newPosition = getPositionWithPadding(oldNotice.GuiObject, "top", Library.Settings.Notifications.Padding)
+                        oldNotice.GuiObject:TweenPosition(newPosition, 'Out', 'Quad', 0.2, true)
                     end
                     local newPosition = UDim2.new(0.011, 0, 0.929, 0)
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true)
@@ -756,11 +754,12 @@ do
 
                 local function tweenLeft(tweenTime)
                     print(repr(Library.Notices, {pretty = true}))
-                    if not Library.Notices[NoticeIndex] then return end
+                    if not Library:GetActiveNotices()[NoticeIndex] then return end
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, 0)
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
-                        for i, oldNotice in ipairs(Library.Notices) do
-                            if oldNotice.Active and i < NoticeIndex then
+                        for i, oldNotice in ipairs(Library:GetActiveNotices()) do
+                            print(i < NoticeIndex)
+                            if i < NoticeIndex then
                                 local _newPosition = getPositionWithPadding(oldNotice.GuiObject, "bottom", Library.Settings.Notifications.Padding)
                                 oldNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, true)
                             end
@@ -852,6 +851,16 @@ function Library:CreateWindow(name, gameName)
             GameName = gameName
         }
     )
+end
+
+function Library:GetActiveNotices())
+    local activeNotices = {}
+    for i, notice in ipairs(Library.Notices) do
+        if notice.Active then
+            table.insert(activeNotices, notice)
+        end
+    end
+    return activeNotices
 end
 
 local function SetupContainer()
