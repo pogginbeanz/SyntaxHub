@@ -756,6 +756,7 @@ do
                     print(repr(Library.Notices, {pretty = true}))
                     if not Library:GetActiveNotices()[NoticeIndex] then return end
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, notice.Position.Y.Offset)
+                    NoticeData.Active = false
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
                         for i, oldNotice in ipairs(Library:GetActiveNotices()) do
                             print(i < NoticeIndex)
@@ -764,8 +765,6 @@ do
                                 oldNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, true)
                             end
                         end
-                        table.remove(Library.Notices, NoticeIndex)
-                        NoticeData.Active = false
                     end)
                 end
 
