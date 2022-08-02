@@ -171,9 +171,9 @@ do
 
                 local icon1 = Instance.new('ImageLabel')
                 icon1.Name = 'Icon'
-                icon1.Image = 'rbxassetid://3926305904'
-                icon1.ImageRectOffset = Vector2.new(284, 4)
-                icon1.ImageRectSize = Vector2.new(24, 24)
+                icon1.Image = 'rbxassetid://3926307971'
+                icon1.ImageRectOffset = Vector2.new(884, 284)
+                icon1.ImageRectSize = Vector2.new(36, 36)
                 icon1.ScaleType = Enum.ScaleType.Fit
                 icon1.AnchorPoint = Vector2.new(0.5, 0.5)
                 icon1.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
