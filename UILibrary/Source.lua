@@ -744,9 +744,9 @@ do
                 end
 
                 local function tweenRight(tweenTime)
-                    for i, oldNotice in ipairs(Library:GetActiveNotices()) do
-                        local newPosition = getPositionWithPadding(oldNotice.GuiObject, "top", Library.Settings.Notifications.Padding)
-                        oldNotice.GuiObject:TweenPosition(newPosition, 'Out', 'Quad', 0.2, true)
+                    for i, activeNotice in ipairs(Library:GetActiveNotices()) do
+                        local newPosition = getPositionWithPadding(activeNotice.GuiObject, "top", Library.Settings.Notifications.Padding)
+                        activeNotice.GuiObject:TweenPosition(newPosition, 'Out', 'Quad', 0.2, true)
                     end
                     local newPosition = UDim2.new(0.011, 0, 0.929, 0)
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true)
@@ -756,15 +756,15 @@ do
                     --print(repr(Library.Notices, {pretty = true}))
                     if not NoticeData.Active then return end
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, notice.Position.Y.Offset)
-                    NoticeData.Active = false
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
-                        for i, oldNotice in ipairs(Library:GetActiveNotices()) do
+                        for i, activeNotice in ipairs(Library:GetActiveNotices()) do
                             print(i, NoticeIndex)
                             if i < NoticeIndex then
-                                local _newPosition = getPositionWithPadding(oldNotice.GuiObject, "bottom", Library.Settings.Notifications.Padding)
-                                oldNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, true)
+                                local _newPosition = getPositionWithPadding(activeNotice.GuiObject, "bottom", Library.Settings.Notifications.Padding)
+                                activeNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, true)
                             end
                         end
+                        NoticeData.Active = false
                     end)
                 end
 
@@ -794,7 +794,7 @@ do
                             removed:Fire()
                         end,
                         Destroy = function()
-                            table.remove(Library.Notices, NoticeIndex)
+                            NoticeData.Active = false
                             notice:Destroy()
                         end
                     },
