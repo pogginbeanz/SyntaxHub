@@ -727,13 +727,12 @@ do
                 content.Parent = notice
 
                 Library.NoticesAmount += 1
-                local NoticeIndex = Library.NoticesAmount
-
-                table.insert(Library.Notices, {
+                local NoticeData = {
                     GuiObject = notice,
-                    Index = NoticeIndex
-                })
-                local TableIndex = #Library.Notices
+                    Active = true
+                }
+                table.insert(Library.Notices, NoticeData)
+                local NoticeIndex = #Library.Notices
 
                 local function getPositionWithPadding(guiObject, direction, padding)
                     direction = direction:lower()
@@ -746,8 +745,10 @@ do
 
                 local function tweenRight(tweenTime)
                     for i, oldNotice in ipairs(Library.Notices) do
-                        local newPosition = getPositionWithPadding(oldNotice.GuiObject, "top", Library.Settings.Notifications.Padding)
-                        oldNotice.GuiObject:TweenPosition(newPosition, 'Out', 'Quad', 0.2, true)
+                        if oldNotice.Active then
+                            local newPosition = getPositionWithPadding(oldNotice.GuiObject, "top", Library.Settings.Notifications.Padding)
+                            oldNotice.GuiObject:TweenPosition(newPosition, 'Out', 'Quad', 0.2, true)
+                        end
                     end
                     local newPosition = UDim2.new(0.011, 0, 0.929, 0)
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true)
@@ -755,16 +756,17 @@ do
 
                 local function tweenLeft(tweenTime)
                     print(repr(Library.Notices, {pretty = true}))
-                    if not Library.Notices[TableIndex] then return end
+                    if not Library.Notices[NoticeIndex] then return end
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, 0)
                     notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
                         for i, oldNotice in ipairs(Library.Notices) do
-                            if oldNotice.Index < NoticeIndex then
+                            if oldNotice.Active and i < NoticeIndex then
                                 local _newPosition = getPositionWithPadding(oldNotice.GuiObject, "bottom", Library.Settings.Notifications.Padding)
                                 oldNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, true)
                             end
                         end
-                        table.remove(Library.Notices, TableIndex)
+                        table.remove(Library.Notices, NoticeIndex)
+                        NoticeData.Active = false
                     end)
                 end
 
