@@ -14,7 +14,7 @@ local RNG = Random.new(os.time() + tick())
 
 local Library = {}
 Library.Notices = {}
-Library.NoticesAmount = 0
+Library.NoticeUtils = {}
 Library.Settings = {
     Notifications = {
         DefaultStayTime = 4,
@@ -721,7 +721,7 @@ do
                 icon1.BorderSizePixel = 0
                 icon1.Position = UDim2.fromScale(0.5, 0.5)
                 icon1.Size = UDim2.new(1, -2, 1, -2)
-                icon1.ZIndex = 3
+                icon1.ZIndex = 2
                 icon1.Parent = close
 
                 close.Parent = topbar
@@ -878,6 +878,33 @@ function Library:GetActiveNotices()
         end
     end
     return activeNotices
+end
+
+function Library.NoticeUtils:Notify(hubName, text, stayTime)
+    return Library:CreateElement("Notice", {
+        Name = hubName,
+        Type = "Notification",
+        Text = text,
+        StayTime = stayTime
+    })
+end
+
+function Library.NoticeUtils:Warn(hubName, text, stayTime)
+    return Library:CreateElement("Notice", {
+        Name = hubName,
+        Type = "Warning",
+        Text = text,
+        StayTime = stayTime
+    })
+end
+
+function Library.NoticeUtils:Error(hubName, text, stayTime)
+    return Library:CreateElement("Notice", {
+        Name = hubName,
+        Type = "Error",
+        Text = text,
+        StayTime = stayTime
+    })
 end
 
 local function SetupContainer()
