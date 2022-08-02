@@ -4,6 +4,7 @@ function SoundPlayer:Play(props)
     local sound = Instance.new("Sound")
     sound.Name = props.Name or "Sound"
     sound.SoundId = props.SoundId or ""
+    sound.Volume = props.Volume or 0.5
     sound.Looped = props.Looped or false
     sound.TimePosition = props.StartPosition or 0
     sound.Parent = SoundPlayer.Container
