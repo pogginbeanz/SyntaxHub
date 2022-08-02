@@ -746,22 +746,22 @@ do
                 local function tweenRight(tweenTime)
                     for i, activeNotice in ipairs(Library:GetActiveNotices()) do
                         local newPosition = getPositionWithPadding(activeNotice.GuiObject, "top", Library.Settings.Notifications.Padding)
-                        activeNotice.GuiObject:TweenPosition(newPosition, 'Out', 'Quad', 0.2, true)
+                        activeNotice.GuiObject:TweenPosition(newPosition, 'Out', 'Quad', 0.2, false)
                     end
                     local newPosition = UDim2.new(0.011, 0, 0.929, 0)
-                    notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true)
+                    notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, false)
                 end
 
                 local function tweenLeft(tweenTime)
                     --print(repr(Library.Notices, {pretty = true}))
                     if not NoticeData.Active then return end
                     local newPosition = UDim2.new(-0.2, 0, notice.Position.Y.Scale, notice.Position.Y.Offset)
-                    notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true, function()
+                    notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, false, function()
                         for i, activeNotice in ipairs(Library:GetActiveNotices()) do
                             print(i, NoticeIndex)
                             if i < NoticeIndex then
                                 local _newPosition = getPositionWithPadding(activeNotice.GuiObject, "bottom", Library.Settings.Notifications.Padding)
-                                activeNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, true)
+                                activeNotice.GuiObject:TweenPosition(_newPosition, 'Out', 'Quad', 0.2, false)
                             end
                         end
                         NoticeData.Active = false
