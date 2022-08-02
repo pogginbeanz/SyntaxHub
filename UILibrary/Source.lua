@@ -749,7 +749,7 @@ do
                         activeNotice.GuiObject:TweenPosition(newPosition, 'Out', 'Quad', 0.2, false)
                     end
                     local newPosition = UDim2.new(0.011, 0, 0.929, 0)
-                    notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, false)
+                    notice:TweenPosition(newPosition, 'Out', 'Quad', tweenTime, true)
                 end
 
                 local function tweenLeft(tweenTime)
