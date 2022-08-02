@@ -252,6 +252,7 @@ do
                 local isShrunk = false
                 local function toggleShrink(toggle)
                     if toggle then
+                        shrink.ImageRectOffset = Vector2.new(324, 364)
                         main:TweenSize(
                             UDim2.new(0, 560, 0, 28),
                             'Out',
@@ -263,6 +264,7 @@ do
                             end
                         )
                     else
+                        shrink.ImageRectOffset = Vector2.new(884, 284)
                         main:TweenSize(
                             UDim2.new(0, 560, 0, 28),
                             'Out',
