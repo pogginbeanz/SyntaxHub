@@ -742,7 +742,6 @@ do
                 content.Size = UDim2.fromOffset(249, 43)
                 content.Parent = notice
 
-                Library.NoticesAmount += 1
                 local NoticeData = {
                     GuiObject = notice,
                     Active = true
