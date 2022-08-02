@@ -7,6 +7,7 @@ end
 local Signal = loadstring(game:HttpGet('https://raw.githubusercontent.com/Sleitnick/RbxUtil/main/modules/signal/init.lua', true))()
 local StringGenerator = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/StringGenerator.lua', true))()
 local DraggableObject = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/DraggableObject.lua', true))()
+local SoundPlayer = loadstring(game:HttpGet("https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/SoundPlayer.lua", true))()
 local repr = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/repr.lua', true))()
 
 local RNG = Random.new(os.time() + tick())
@@ -587,15 +588,30 @@ do
                 local noticeTypes = {
                     ['Notification'] = {
                         Color = Color3.fromRGB(44, 120, 224),
-                        Icon = 'rbxassetid://10444486616'
+                        Icon = 'rbxassetid://10444486616',
+                        SoundProps = {
+                            SoundId = "rbxassetid://10446862686",
+                            Volume = 0.2,
+                            DestroyOnEnded = true
+                        }
                     },
                     ['Warning'] = {
                         Color = Color3.fromRGB(255, 170, 0),
-                        Icon = 'rbxassetid://10444719767'
+                        Icon = 'rbxassetid://10444719767',
+                        SoundProps = {
+                            SoundId = "rbxassetid://10446865452",
+                            Volume = 0.2,
+                            DestroyOnEnded = true
+                        }
                     },
                     ['Error'] = {
                         Color = Color3.fromRGB(255, 0, 0),
-                        Icon = 'rbxassetid://10444699605'
+                        Icon = 'rbxassetid://10444699605',
+                        SoundProps = {
+                            SoundId = "rbxassetid://10446871400",
+                            Volume = 0.2,
+                            DestroyOnEnded = true
+                        }
                     }
                 }
                 local noticeType = noticeTypes[props.Type]
