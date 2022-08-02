@@ -771,7 +771,9 @@ do
                 notice.Parent = Library.Container.Notifications
 
                 tweenRight(0.2)
-                task.delay(props.StayTime or Library.Settings.Notifications.DefaultStayTime, tweenLeft, 0.2)
+                task.delay(props.StayTime or Library.Settings.Notifications.DefaultStayTime, function()
+                    tweenLeft(0.2)
+                end)
 
                 close.Activated:Connect(function()
                     tweenLeft(0.2)
