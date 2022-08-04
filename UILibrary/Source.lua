@@ -751,11 +751,13 @@ do
                     if isToggled then
                         switch.BackgroundTransparency = 0
                         uIStroke.Color = Color3.fromRGB(44, 120, 224)
+                        circle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
                         Library.Utility:TweenPosition(circle, UDim2.new(1-0.18, 0, 0.5, 0), tweenTime, true)
                         Library.Utility:TweenBackgroundColor3(toggle, Color3.fromRGB(37, 37, 37), 0.2)
                     else
                         switch.BackgroundTransparency = 1
                         uIStroke.Color = Color3.fromRGB(65, 65, 65)
+                        circle.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
                         Library.Utility:TweenPosition(circle, UDim2.new(0.18, 0, 0.5, 0), tweenTime, true)
                         Library.Utility:TweenBackgroundColor3(toggle, Color3.fromRGB(34, 34, 34), 0.2)
                     end
