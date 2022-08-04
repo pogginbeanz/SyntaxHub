@@ -886,7 +886,7 @@ do
                 inputFrame.BackgroundTransparency = 1
                 inputFrame.BorderSizePixel = 0
                 inputFrame.Position = UDim2.fromScale(0.5, 0.5)
-                inputFrame.Size = UDim2.fromScale(1, 4)
+                inputFrame.Size = UDim2.fromScale(1.04, 4)
 
                 inputFrame.Parent = barHold
 
