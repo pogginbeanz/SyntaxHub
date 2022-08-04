@@ -944,10 +944,11 @@ do
 
                 local value = props.Initial or props.Min
                 local function updateValue(newValue)
+                    local mult = math.clamp(props.Max + props.Min, props.Min, props.Max)
                     number.Text = Library.Utility:RoundDecimals(props.Max * newValue, 2)
-                    bar.Size = UDim2.new(newValue + 1/props.Min, 0, 1, 0)
-                    value = newValue * props.Max + props.Min
-                    changed:Fire(newValue * props.Max + props.Min)
+                    bar.Size = UDim2.new(math.clamp(newValue + 1/props.Min, 0, 1), 0, 1, 0)
+                    value = newValue * mult
+                    changed:Fire(newValue * mult)
                 end
 
                 local sliderMechanic = SliderMechanic.new(bar, inputFrame, props.Min, props.Max, props.Initial)
