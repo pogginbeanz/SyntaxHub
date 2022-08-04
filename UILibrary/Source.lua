@@ -761,14 +761,19 @@ do
                     end
                 end
 
-                playSwitchAnimation(props.Initial and true or false, 0)
-
                 local isToggled = props.Initial or false
                 toggle.Activated:Connect(function()
                     isToggled = not isToggled
                     playSwitchAnimation(isToggled, 0.2)
                     onToggle:Fire(isToggled)
                 end)
+
+                coroutine.wrap(function()
+                    while not toggle.Parent do
+                        task.wait()
+                    end
+                    playSwitchAnimation(props.Initial and true or false, 0)
+                end)()
 
                 return {
                     GuiObject = toggle,
