@@ -866,6 +866,7 @@ do
                 inputFrame.Name = 'InputFrame'
                 inputFrame.AnchorPoint = Vector2.new(0.5, 0.5)
                 inputFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                inputFrame.BackgroundTransparency = 1
                 inputFrame.BorderSizePixel = 0
                 inputFrame.Position = UDim2.fromScale(0.5, 0.5)
                 inputFrame.Size = UDim2.fromScale(1, 5)
