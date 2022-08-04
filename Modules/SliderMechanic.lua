@@ -5,10 +5,10 @@ local Signal = loadstring(game:HttpGet('https://raw.githubusercontent.com/Sleitn
 local SliderMechanic = {}
 SliderMechanic.__index = SliderMechanic
 
-function SliderMechanic.new(bar, circle, min, max, initial, increment)
+function SliderMechanic.new(bar, inputFrame, min, max, initial, increment)
     local self = {}
     self.Bar = bar
-    self.Circle = circle
+    self.InputFrame = inputFrame
     self.Current = initial or min
     self.Min = min or 0
     self.Max = max or 0
@@ -17,7 +17,7 @@ function SliderMechanic.new(bar, circle, min, max, initial, increment)
 
     setmetatable(self, SliderMechanic)
 
-    self.InputBegan = circle.InputBegan:Connect(function(input)
+    self.InputBegan = inputFrame.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             self.MouseHold = true
         end
