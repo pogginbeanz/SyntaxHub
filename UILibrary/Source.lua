@@ -37,6 +37,7 @@ Library.Settings = {
 }
 
 Library.Utility = {
+    -- User Interface:
     TweenBackgroundColor3 = function(self, guiObject, color, tweenTime)
         local tweenInfo = TweenInfo.new(tweenTime or 1, Enum.EasingStyle.Quad, Enum.EasingDirection.Out)
         local tween = TweenService:Create(guiObject, tweenInfo, {BackgroundColor3 = color})
@@ -54,6 +55,11 @@ Library.Utility = {
     end,
     TweenPosition = function(self, guiObject, position, tweenTime, override)
         guiObject:TweenPosition(position, 'Out', 'Quad', tweenTime or 1, (override ~= nil and true) or false)
+    end,
+    -- Maths:
+    RoundDecimals = function(self, num, places)
+        local mult = 10^places
+        return math.floor(num*mult)/mult
     end
 }
 
@@ -909,7 +915,7 @@ do
                 number.Parent = slider
 
                 local function updateValue(newValue)
-                    number.Text = props.Max * newValue
+                    number.Text = Library.Utility:RoundDecimals(props.Max * newValue, 2)
                     bar.Size = UDim2.new(newValue, 0, 1, 0)
                 end
 
