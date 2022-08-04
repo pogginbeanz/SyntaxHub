@@ -58,8 +58,8 @@ Library.Utility = {
     end,
     -- Maths:
     RoundDecimals = function(self, num, places)
-        local mult = 10^places
-        return math.floor(num*mult)/mult
+        local mult = 10 ^ places
+        return math.floor(num * mult) / mult
     end
 }
 
@@ -862,6 +862,16 @@ do
                 barHold.Position = UDim2.fromScale(0.675, 0.5)
                 barHold.Size = UDim2.fromOffset(233, 2)
 
+                local inputFrame = Instance.new('Frame')
+                inputFrame.Name = 'InputFrame'
+                inputFrame.AnchorPoint = Vector2.new(0.5, 0.5)
+                inputFrame.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                inputFrame.BorderSizePixel = 0
+                inputFrame.Position = UDim2.fromScale(0.5, 0.5)
+                inputFrame.Size = UDim2.fromScale(1, 5)
+
+                inputFrame.Parent = barHold
+
                 local bar = Instance.new('Frame')
                 bar.Name = 'Bar'
                 bar.AnchorPoint = Vector2.new(0, 0.5)
@@ -919,7 +929,7 @@ do
                     bar.Size = UDim2.new(newValue, 0, 1, 0)
                 end
 
-                local sliderMechanic = SliderMechanic.new(bar, circle, props.Min, props.Max, props.Initial)
+                local sliderMechanic = SliderMechanic.new(bar, inputFrame, props.Min, props.Max, props.Initial)
                 sliderMechanic.ValueChanged:Connect(updateValue)
 
                 updateValue(props.Initial / props.Max)
