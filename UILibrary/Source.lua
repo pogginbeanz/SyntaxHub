@@ -801,10 +801,13 @@ do
                         SetText = function(newText)
                             toggleTitle.Text = newText
                         end,
-                        SetToggled = function(toggled)
+                        Set = function(toggled)
                             isToggled = toggled
                             playSwitchAnimation(toggled, 0.2)
                             onToggle:Fire(toggled)
+                        end,
+                        Get = function()
+                            return isToggled
                         end,
                         Destroy = function()
                             toggle:Destroy()
@@ -818,11 +821,33 @@ do
             Element = function(gui)
                 local Element = {}
 
+                function Element:GetText()
+                    return gui.Functions.GetText()
+                end
+
+                function Element:SetText(newText)
+                    gui.Functions.SetText(newText)
+                end
+
+                function Element:Set(toggled)
+                    gui.Functions.Set(toggled)
+                end
+
+                function Element:Get()
+                    return gui.Functions.Get()
+                end
+
+                function Element:Destroy()
+                    gui.Functions.Destroy()
+                end
+
                 return Element
             end
         },
         ['Slider'] = {
             Gui = function(props)
+                local changed = Signal.new()
+
                 local slider = Instance.new('TextButton')
                 slider.Name = 'Slider'
                 slider.Font = Enum.Font.SourceSans
@@ -925,9 +950,12 @@ do
                 number.Size = UDim2.fromOffset(38, 30)
                 number.Parent = slider
 
+                local value = props.Initial or props.Min
                 local function updateValue(newValue)
                     number.Text = Library.Utility:RoundDecimals(props.Max * newValue, 2)
                     bar.Size = UDim2.new(newValue, 0, 1, 0)
+                    value = newValue * props.Max
+                    changed:Fire(newValue * props.Max)
                 end
 
                 local sliderMechanic = SliderMechanic.new(bar, inputFrame, props.Min, props.Max, props.Initial)
@@ -938,16 +966,36 @@ do
                 return {
                     GuiObject = slider,
                     Functions = {
+                        Set = function(num)
+                            updateValue(num)
+                        end,
+                        Get = function()
+                            return value
+                        end,
                         Destroy = function()
                             sliderMechanic:Destroy()
                             slider:Destroy()
                         end
                     },
-                    Events = {}
+                    Events = {
+                        Changed = changed
+                    }
                 }
             end,
             Element = function(gui)
                 local Element = {}
+
+                function Element:Set(num)
+                    gui.Functions.Set(num)
+                end
+
+                function Element:Get()
+                    return gui.Functions.Get()
+                end
+
+                function Element:Destroy()
+                    gui.Functions.Destroy()
+                end
 
                 return Element
             end
