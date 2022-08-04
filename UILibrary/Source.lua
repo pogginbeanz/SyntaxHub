@@ -18,8 +18,7 @@ local SoundPlayer =
     loadstring(
     game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/SoundPlayer.lua', true)
 )()
-local repr =
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/repr.lua', true))()
+local repr = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/repr.lua', true))()
 
 local RNG = Random.new(os.time() + tick())
 
