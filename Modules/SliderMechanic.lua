@@ -48,7 +48,7 @@ function SliderMechanic:Recalculate()
     local mouseLocation = UserInputService:GetMouseLocation()
     local yScale = self.Bar.Size.Y.Scale
     local parentSize = self.Bar.Parent.AbsoluteSize
-    local newSize = UDim2.new(0, math.clamp((self.Bar.Position - mouseLocation).X, 0, parentSize.X), yScale, 0)
+    local newSize = UDim2.new(0, math.clamp((self.Bar.AbsolutePosition - mouseLocation).X, 0, parentSize.X), yScale, 0)
     self.ValueChanged:Fire(newSize.X.Offset/parentSize.X)
 end
 
