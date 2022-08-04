@@ -657,130 +657,6 @@ do
                     }
                 }
             end,
-            ['Toggle'] = {
-                Gui = function(props)
-                    local onToggle = Signal.new()
-
-                    local toggle = Instance.new('TextButton')
-                    toggle.Name = 'Toggle'
-                    toggle.Font = Enum.Font.SourceSans
-                    toggle.Text = ''
-                    toggle.TextColor3 = Color3.fromRGB(0, 0, 0)
-                    toggle.TextSize = 14
-                    toggle.AutoButtonColor = false
-                    toggle.AnchorPoint = Vector2.new(0.5, 0.5)
-                    toggle.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
-                    toggle.BorderSizePixel = 0
-                    toggle.Size = UDim2.fromOffset(405, 42)
-
-                    local toggleCorner = Instance.new('UICorner')
-                    toggleCorner.Name = 'ToggleCorner'
-                    toggleCorner.CornerRadius = UDim.new(0, 5)
-                    toggleCorner.Parent = toggle
-
-                    local toggleTitle = Instance.new('TextLabel')
-                    toggleTitle.Name = 'ToggleTitle'
-                    toggleTitle.Font = Enum.Font.Gotham
-                    toggleTitle.Text = props.Text
-                    toggleTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
-                    toggleTitle.TextSize = 14
-                    toggleTitle.TextXAlignment = Enum.TextXAlignment.Left
-                    toggleTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                    toggleTitle.BackgroundTransparency = 1
-                    toggleTitle.BorderSizePixel = 0
-                    toggleTitle.Position = UDim2.fromScale(0.035, 0)
-                    toggleTitle.Size = UDim2.fromOffset(187, 42)
-                    toggleTitle.Parent = toggle
-
-                    local switch = Instance.new('Frame')
-                    switch.Name = 'Switch'
-                    switch.AnchorPoint = Vector2.new(1, 0.5)
-                    switch.BackgroundColor3 = Color3.fromRGB(44, 120, 224)
-                    switch.BackgroundTransparency = 1
-                    switch.BorderSizePixel = 0
-                    switch.Position = UDim2.fromScale(0.955, 0.5)
-                    switch.Size = UDim2.fromOffset(34, 13)
-
-                    local uICorner = Instance.new('UICorner')
-                    uICorner.Name = 'UICorner'
-                    uICorner.CornerRadius = UDim.new(1, 0)
-                    uICorner.Parent = switch
-
-                    local uIStroke = Instance.new('UIStroke')
-                    uIStroke.Name = 'UIStroke'
-                    uIStroke.Color = Color3.fromRGB(65, 65, 65)
-                    uIStroke.Thickness = 2
-                    uIStroke.Parent = switch
-
-                    local circle = Instance.new('Frame')
-                    circle.Name = 'Circle'
-                    circle.AnchorPoint = Vector2.new(0.5, 0.5)
-                    circle.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
-                    circle.BorderSizePixel = 0
-                    circle.Position = UDim2.fromScale(0.18, 0.5)
-                    circle.Size = UDim2.fromOffset(9, 9)
-
-                    local circleCorner = Instance.new('UICorner')
-                    circleCorner.Name = 'CircleCorner'
-                    circleCorner.CornerRadius = UDim.new(1, 0)
-                    circleCorner.Parent = circle
-
-                    circle.Parent = switch
-
-                    switch.Parent = toggle
-
-                    local function playSwitchAnimation(isToggled, tweenTime)
-                        if isToggled then
-                            switch.BackgroundTransparency = 0
-                            uIStroke.Color = Color3.fromRGB(44, 120, 224)
-                            Library.Utility:TweenPosition(circle, UDim2.new(1-0.18, 0, 0.5, 0), tweenTime, true)
-                            Library.Utility:TweenBackgroundColor3(toggle, Color3.fromRGB(37, 37, 37), 0.2)
-                        else
-                            switch.BackgroundTransparency = 1
-                            uIStroke.Color = Color3.fromRGB(65, 65, 65)
-                            Library.Utility:TweenPosition(circle, UDim2.new(0.18, 0, 0.5, 0), tweenTime, true)
-                            Library.Utility:TweenBackgroundColor3(toggle, Color3.fromRGB(34, 34, 34), 0.2)
-                        end
-                    end
-
-                    playSwitchAnimation(props.Initial and true or false, 0)
-
-                    local isToggled = props.Initial or false
-                    toggle.Activated:Connect(function()
-                        isToggled = not isToggled
-                        playSwitchAnimation(isToggled, 0.2)
-                        onToggle:Fire(isToggled)
-                    end)
-
-                    return {
-                        GuiObject = toggle,
-                        Functions = {
-                            GetText = function()
-                                return toggleTitle.Text
-                            end,
-                            SetText = function(newText)
-                                toggleTitle.Text = newText
-                            end,
-                            SetToggled = function(toggled)
-                                isToggled = toggled
-                                playSwitchAnimation(toggled, 0.2)
-                                onToggle:Fire(toggled)
-                            end,
-                            Destroy = function()
-                                toggle:Destroy()
-                            end
-                        },
-                        Events = {
-                            OnToggle = onToggle
-                        }
-                    }
-                end,
-                Element = function(gui)
-                    local Element = {}
-
-                    return Element
-                end
-            },
             Element = function(gui)
                 local Element = {}
 
@@ -795,6 +671,130 @@ do
                 function Element:Destroy()
                     gui.Functions.Destroy()
                 end
+
+                return Element
+            end
+        },
+        ['Toggle'] = {
+            Gui = function(props)
+                local onToggle = Signal.new()
+
+                local toggle = Instance.new('TextButton')
+                toggle.Name = 'Toggle'
+                toggle.Font = Enum.Font.SourceSans
+                toggle.Text = ''
+                toggle.TextColor3 = Color3.fromRGB(0, 0, 0)
+                toggle.TextSize = 14
+                toggle.AutoButtonColor = false
+                toggle.AnchorPoint = Vector2.new(0.5, 0.5)
+                toggle.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                toggle.BorderSizePixel = 0
+                toggle.Size = UDim2.fromOffset(405, 42)
+
+                local toggleCorner = Instance.new('UICorner')
+                toggleCorner.Name = 'ToggleCorner'
+                toggleCorner.CornerRadius = UDim.new(0, 5)
+                toggleCorner.Parent = toggle
+
+                local toggleTitle = Instance.new('TextLabel')
+                toggleTitle.Name = 'ToggleTitle'
+                toggleTitle.Font = Enum.Font.Gotham
+                toggleTitle.Text = props.Text
+                toggleTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                toggleTitle.TextSize = 14
+                toggleTitle.TextXAlignment = Enum.TextXAlignment.Left
+                toggleTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                toggleTitle.BackgroundTransparency = 1
+                toggleTitle.BorderSizePixel = 0
+                toggleTitle.Position = UDim2.fromScale(0.035, 0)
+                toggleTitle.Size = UDim2.fromOffset(187, 42)
+                toggleTitle.Parent = toggle
+
+                local switch = Instance.new('Frame')
+                switch.Name = 'Switch'
+                switch.AnchorPoint = Vector2.new(1, 0.5)
+                switch.BackgroundColor3 = Color3.fromRGB(44, 120, 224)
+                switch.BackgroundTransparency = 1
+                switch.BorderSizePixel = 0
+                switch.Position = UDim2.fromScale(0.955, 0.5)
+                switch.Size = UDim2.fromOffset(34, 13)
+
+                local uICorner = Instance.new('UICorner')
+                uICorner.Name = 'UICorner'
+                uICorner.CornerRadius = UDim.new(1, 0)
+                uICorner.Parent = switch
+
+                local uIStroke = Instance.new('UIStroke')
+                uIStroke.Name = 'UIStroke'
+                uIStroke.Color = Color3.fromRGB(65, 65, 65)
+                uIStroke.Thickness = 2
+                uIStroke.Parent = switch
+
+                local circle = Instance.new('Frame')
+                circle.Name = 'Circle'
+                circle.AnchorPoint = Vector2.new(0.5, 0.5)
+                circle.BackgroundColor3 = Color3.fromRGB(65, 65, 65)
+                circle.BorderSizePixel = 0
+                circle.Position = UDim2.fromScale(0.18, 0.5)
+                circle.Size = UDim2.fromOffset(9, 9)
+
+                local circleCorner = Instance.new('UICorner')
+                circleCorner.Name = 'CircleCorner'
+                circleCorner.CornerRadius = UDim.new(1, 0)
+                circleCorner.Parent = circle
+
+                circle.Parent = switch
+
+                switch.Parent = toggle
+
+                local function playSwitchAnimation(isToggled, tweenTime)
+                    if isToggled then
+                        switch.BackgroundTransparency = 0
+                        uIStroke.Color = Color3.fromRGB(44, 120, 224)
+                        Library.Utility:TweenPosition(circle, UDim2.new(1-0.18, 0, 0.5, 0), tweenTime, true)
+                        Library.Utility:TweenBackgroundColor3(toggle, Color3.fromRGB(37, 37, 37), 0.2)
+                    else
+                        switch.BackgroundTransparency = 1
+                        uIStroke.Color = Color3.fromRGB(65, 65, 65)
+                        Library.Utility:TweenPosition(circle, UDim2.new(0.18, 0, 0.5, 0), tweenTime, true)
+                        Library.Utility:TweenBackgroundColor3(toggle, Color3.fromRGB(34, 34, 34), 0.2)
+                    end
+                end
+
+                playSwitchAnimation(props.Initial and true or false, 0)
+
+                local isToggled = props.Initial or false
+                toggle.Activated:Connect(function()
+                    isToggled = not isToggled
+                    playSwitchAnimation(isToggled, 0.2)
+                    onToggle:Fire(isToggled)
+                end)
+
+                return {
+                    GuiObject = toggle,
+                    Functions = {
+                        GetText = function()
+                            return toggleTitle.Text
+                        end,
+                        SetText = function(newText)
+                            toggleTitle.Text = newText
+                        end,
+                        SetToggled = function(toggled)
+                            isToggled = toggled
+                            playSwitchAnimation(toggled, 0.2)
+                            onToggle:Fire(toggled)
+                        end,
+                        Destroy = function()
+                            toggle:Destroy()
+                        end
+                    },
+                    Events = {
+                        OnToggle = onToggle
+                    }
+                }
+            end,
+            Element = function(gui)
+                local Element = {}
 
                 return Element
             end
