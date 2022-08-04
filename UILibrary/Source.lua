@@ -638,17 +638,13 @@ do
                 buttonTitle.Size = UDim2.fromOffset(187, 42)
                 buttonTitle.Parent = button
 
-                button.MouseEnter:Connect(
-                    function()
-                        Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
-                    end
-                )
+                button.MouseEnter:Connect(function()
+                    Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(37, 37, 37), 0.2)
+                end)
 
-                button.MouseLeave:Connect(
-                    function()
-                        Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(34, 34, 34), 0.2)
-                    end
-                )
+                button.MouseLeave:Connect(function()
+                    Library.Utility:TweenBackgroundColor3(button, Color3.fromRGB(34, 34, 34), 0.2)
+                end)
 
                 return {
                     GuiObject = button,
@@ -775,22 +771,18 @@ do
                 end
 
                 local isToggled = props.Initial or false
-                toggle.Activated:Connect(
-                    function()
-                        isToggled = not isToggled
-                        playSwitchAnimation(isToggled, 0.2)
-                        onToggle:Fire(isToggled)
-                    end
-                )
+                toggle.Activated:Connect(function()
+                    isToggled = not isToggled
+                    playSwitchAnimation(isToggled, 0.2)
+                    onToggle:Fire(isToggled)
+                end)
 
-                coroutine.wrap(
-                    function()
-                        while not toggle.Parent do
-                            task.wait()
-                        end
-                        playSwitchAnimation(props.Initial and true or false, 0)
+                coroutine.wrap(function()
+                    while not toggle.Parent do
+                        task.wait()
                     end
-                )()
+                    playSwitchAnimation(props.Initial and true or false, 0)
+                end)()
 
                 return {
                     GuiObject = toggle,
@@ -963,6 +955,14 @@ do
 
                 updateValue(props.Initial / props.Max)
 
+                sliderMechanic.StartDrag:Connect(function()
+                    Library.Utility:TweenBackgroundColor3(slider, Color3.fromRGB(37, 37, 37), 0.2)
+                end)
+
+                sliderMechanic.StopDrag:Connect(function()
+                    Library.Utility:TweenBackgroundColor3(slider, Color3.fromRGB(34, 34, 34), 0.2)
+                end)
+
                 return {
                     GuiObject = slider,
                     Functions = {
@@ -978,6 +978,8 @@ do
                         end
                     },
                     Events = {
+                        StartDrag = sliderMechanic.StartDrag,
+                        StopDrag = sliderMechanic.StopDrag,
                         Changed = changed
                     }
                 }
