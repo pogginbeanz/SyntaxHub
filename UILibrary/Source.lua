@@ -18,7 +18,12 @@ local SoundPlayer =
     loadstring(
     game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/SoundPlayer.lua', true)
 )()
-local repr = loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/repr.lua', true))()
+local SliderMechanic =
+    loadstring(
+    game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/SliderMechanic.lua', true)
+)()
+local repr =
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/pogginbeanz/SyntaxHub/main/Modules/repr.lua', true))()
 
 local RNG = Random.new(os.time() + tick())
 
@@ -752,7 +757,7 @@ do
                         switch.BackgroundTransparency = 0
                         uIStroke.Color = Color3.fromRGB(44, 120, 224)
                         circle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-                        Library.Utility:TweenPosition(circle, UDim2.new(1-0.18, 0, 0.5, 0), tweenTime, true)
+                        Library.Utility:TweenPosition(circle, UDim2.new(1 - 0.18, 0, 0.5, 0), tweenTime, true)
                         Library.Utility:TweenBackgroundColor3(toggle, Color3.fromRGB(37, 37, 37), 0.2)
                     else
                         switch.BackgroundTransparency = 1
@@ -764,18 +769,22 @@ do
                 end
 
                 local isToggled = props.Initial or false
-                toggle.Activated:Connect(function()
-                    isToggled = not isToggled
-                    playSwitchAnimation(isToggled, 0.2)
-                    onToggle:Fire(isToggled)
-                end)
-
-                coroutine.wrap(function()
-                    while not toggle.Parent do
-                        task.wait()
+                toggle.Activated:Connect(
+                    function()
+                        isToggled = not isToggled
+                        playSwitchAnimation(isToggled, 0.2)
+                        onToggle:Fire(isToggled)
                     end
-                    playSwitchAnimation(props.Initial and true or false, 0)
-                end)()
+                )
+
+                coroutine.wrap(
+                    function()
+                        while not toggle.Parent do
+                            task.wait()
+                        end
+                        playSwitchAnimation(props.Initial and true or false, 0)
+                    end
+                )()
 
                 return {
                     GuiObject = toggle,
@@ -798,6 +807,126 @@ do
                     Events = {
                         OnToggle = onToggle
                     }
+                }
+            end,
+            Element = function(gui)
+                local Element = {}
+
+                return Element
+            end
+        },
+        ['Slider'] = {
+            Gui = function(props)
+                local slider = Instance.new('TextButton')
+                slider.Name = 'Slider'
+                slider.Font = Enum.Font.SourceSans
+                slider.Text = ''
+                slider.TextColor3 = Color3.fromRGB(0, 0, 0)
+                slider.TextSize = 14
+                slider.AutoButtonColor = false
+                slider.AnchorPoint = Vector2.new(0.5, 0.5)
+                slider.BackgroundColor3 = Color3.fromRGB(34, 34, 34)
+                slider.BorderSizePixel = 0
+                slider.Size = UDim2.fromOffset(405, 42)
+
+                local sliderCorner = Instance.new('UICorner')
+                sliderCorner.Name = 'SliderCorner'
+                sliderCorner.CornerRadius = UDim.new(0, 5)
+                sliderCorner.Parent = slider
+
+                local sliderTitle = Instance.new('TextLabel')
+                sliderTitle.Name = 'SliderTitle'
+                sliderTitle.Font = Enum.Font.Gotham
+                sliderTitle.Text = props.Text
+                sliderTitle.TextColor3 = Color3.fromRGB(255, 255, 255)
+                sliderTitle.TextSize = 14
+                sliderTitle.TextXAlignment = Enum.TextXAlignment.Left
+                sliderTitle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                sliderTitle.BackgroundTransparency = 1
+                sliderTitle.BorderSizePixel = 0
+                sliderTitle.Position = UDim2.fromScale(0.035, 0)
+                sliderTitle.Size = UDim2.fromOffset(104, 42)
+                sliderTitle.Parent = slider
+
+                local barHold = Instance.new('Frame')
+                barHold.Name = 'BarHold'
+                barHold.AnchorPoint = Vector2.new(0.5, 0.5)
+                barHold.BackgroundColor3 = Color3.fromRGB(53, 53, 53)
+                barHold.BorderSizePixel = 0
+                barHold.Position = UDim2.fromScale(0.675, 0.5)
+                barHold.Size = UDim2.fromOffset(233, 2)
+
+                local bar = Instance.new('Frame')
+                bar.Name = 'Bar'
+                bar.AnchorPoint = Vector2.new(0, 0.5)
+                bar.BackgroundColor3 = Color3.fromRGB(44, 120, 224)
+                bar.BorderSizePixel = 0
+                bar.Position = UDim2.fromScale(0, 0.5)
+                bar.Size = UDim2.fromScale(0, 1)
+
+                local circle = Instance.new('Frame')
+                circle.Name = 'Circle'
+                circle.AnchorPoint = Vector2.new(0.5, 0.5)
+                circle.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                circle.BorderSizePixel = 0
+                circle.Position = UDim2.fromScale(1, 0.5)
+                circle.Size = UDim2.fromOffset(8, 8)
+
+                local uICorner = Instance.new('UICorner')
+                uICorner.Name = 'UICorner'
+                uICorner.CornerRadius = UDim.new(1, 0)
+                uICorner.Parent = circle
+
+                circle.Parent = bar
+
+                local uICorner1 = Instance.new('UICorner')
+                uICorner1.Name = 'UICorner'
+                uICorner1.CornerRadius = UDim.new(1, 0)
+                uICorner1.Parent = bar
+
+                bar.Parent = barHold
+
+                local uICorner2 = Instance.new('UICorner')
+                uICorner2.Name = 'UICorner'
+                uICorner2.CornerRadius = UDim.new(1, 0)
+                uICorner2.Parent = barHold
+
+                barHold.Parent = slider
+
+                local number = Instance.new('TextLabel')
+                number.Name = 'Number'
+                number.Font = Enum.Font.Gotham
+                number.Text = '0'
+                number.TextColor3 = Color3.fromRGB(255, 255, 255)
+                number.TextSize = 14
+                number.TextXAlignment = Enum.TextXAlignment.Right
+                number.AnchorPoint = Vector2.new(1, 0.5)
+                number.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+                number.BackgroundTransparency = 1
+                number.BorderSizePixel = 0
+                number.Position = UDim2.fromScale(0.365, 0.5)
+                number.Size = UDim2.fromOffset(38, 30)
+                number.Parent = slider
+
+                local function updateValue(newValue)
+                    number.Text = props.Max * newValue
+                    bar.Size = UDim2.new(newValue, 0, 1, 0)
+                end
+
+                local sliderMechanic = SliderMechanic.new(bar, circle, props.Min, props.Max, props.Initial)
+                sliderMechanic.ValueChanged:Connect(updateValue)
+
+                updateValue(props.Initial / props.Max)
+
+                return {
+                    GuiObject = slider,
+                    Functions = {
+                        Destroy = function()
+                            sliderMechanic:Destroy()
+                            slider:Destroy()
+                        end
+                    },
+                    Events = {}
                 }
             end,
             Element = function(gui)
