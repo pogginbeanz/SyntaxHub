@@ -945,7 +945,7 @@ do
                 local value = props.Initial or props.Min
                 local function updateValue(newValue)
                     number.Text = Library.Utility:RoundDecimals(props.Max * newValue, 2)
-                    bar.Size = UDim2.new(newValue + props.Min * props.Max, 0, 1, 0)
+                    bar.Size = UDim2.new(newValue + props.Min / props.Max, 0, 1, 0)
                     value = newValue * props.Max + props.Min
                     changed:Fire(newValue * props.Max + props.Min)
                 end
