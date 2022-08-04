@@ -946,7 +946,7 @@ do
                 local function updateValue(newValue)
                     local mult = math.clamp(props.Max + props.Min, props.Min, props.Max)
                     number.Text = Library.Utility:RoundDecimals(props.Max * newValue, 2)
-                    bar.Size = UDim2.new(newValue, 0, 1, 0)
+                    bar.Size = UDim2.new(math.clamp(newValue - props.Min, 0, 1), 0, 1, 0)
                     value = newValue * mult
                     changed:Fire(newValue * mult)
                 end
