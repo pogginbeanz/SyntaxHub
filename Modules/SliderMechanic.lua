@@ -20,11 +20,6 @@ function SliderMechanic.new(bar, inputFrame, min, max, initial, increment)
     self.InputBegan = inputFrame.InputBegan:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             self.MouseHold = true
-        end
-    end)
-
-    self.InputBegan2 = bar.Parent.InputBegan:Connect(function(input)
-        if input.UserInputType == Enum.UserInputType.MouseButton1 then
             self:Recalculate()
         end
     end)
