@@ -13,6 +13,8 @@ function SliderMechanic.new(bar, inputFrame, min, max, initial, increment)
     self.Min = min or 0
     self.Max = max or 0
     self.MouseHold = false
+    self.StartDrag = Signal.new()
+    self.StopDrag = Signal.new()
     self.ValueChanged = Signal.new()
 
     setmetatable(self, SliderMechanic)
@@ -21,6 +23,7 @@ function SliderMechanic.new(bar, inputFrame, min, max, initial, increment)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             self.MouseHold = true
             self:Recalculate()
+            self.StartDrag:Fire()
         end
     end)
 
@@ -33,6 +36,7 @@ function SliderMechanic.new(bar, inputFrame, min, max, initial, increment)
     self.InputEnded = UserInputService.InputEnded:Connect(function(input)
         if input.UserInputType == Enum.UserInputType.MouseButton1 then
             self.MouseHold  = false
+            self.StopDrag:Fire()
         end
     end)
 
