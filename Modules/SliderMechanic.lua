@@ -49,7 +49,6 @@ end
 
 function SliderMechanic:Destroy()
     self.InputBegan:Disconnect()
-    self.InputBegan2:Disconnect()
     self.InputChanged:Disconnect()
     self.InputEnded:Disconnect()
     self.ValueChanged:Destroy()
